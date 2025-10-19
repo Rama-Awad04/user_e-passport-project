@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 // ======== الاتصال بقاعدة البيانات ========
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',          // 👈 عدل حسب إعدادات MySQL
-  password: 'root',      // 👈 عدل حسب إعدادات MySQL
-  database: 'epassport3' // اسم قاعدة البيانات
+  user: 'DB_Rama',          // 👈 عدل حسب إعدادات MySQL
+  password: 'RaMa_190704',      // 👈 عدل حسب إعدادات MySQL
+  database: 'DB_Epassport' // اسم قاعدة البيانات
 });
 
 db.connect((err) => {
