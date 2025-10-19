@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body,#root { height: 100%; }
+body { font-family: 'Poppins', sans-serif; }
+
+/* PAGE BACKGROUND */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* HEADER */
+/*.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 36px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.logo { font-size: 26px; }
+.logo-text { font-weight: 700; font-size: 20px; }*/
+
+/* MAIN */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 20px;
+  margin-top: -100px;
+}
+
+/* Title */
+.title {
+  font-size: 44px;
+  font-weight: 800;
+  margin-top: -160px;
+  margin-bottom: 40px;
+  line-height: 1.05;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+/* Buttons vertical stack */
+.buttons-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Button base */
+.btn {
+  width: 300px;
+  max-width: 85%;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+.primary {
+  background:  #fff !important;
+  color: #2a6f97 !important;
+  border: none !important;
+}
+.primary:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 10px 26px rgba(0,0,0,0.16); }
+.outline {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.22);
+}
+.outline:hover { transform: translateY(-4px); background: rgba(255,255,255,0.12); }
+
+/* Plane Line Image */
+.plane-line {
+  max-width: 450px;  
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+  margin-top: 40px; 
+}
+
+/* --- Animation (بالتدريج) --- */
+@keyframes fadeUpSlow {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.content > * { opacity: 0; animation: fadeUpSlow 1.6s cubic-bezier(.2,.9,.3,1) forwards; }
+.content img { animation-delay: 0.2s; }
+.content .title { animation-delay: 0.6s; }
+.content .buttons-vertical { animation-delay: 1s; }
+
+@media (max-width: 900px) {
+  .title { font-size: 34px; }
+  .btn { width: 260px; }
+}
+@media (max-width: 480px) {
+  .title { font-size: 26px; }
+  .btn { width: 220px; padding: 12px; }
+}

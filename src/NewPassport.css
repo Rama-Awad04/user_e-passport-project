@@ -1,0 +1,247 @@
+.new-passport-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  gap: -150px;
+  overflow: hidden;
+}
+
+/* image */
+.image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enroll-img {
+  width: 600px;
+  height: auto;
+  margin-left: 10px;
+}
+
+/* form box */
+.passport-form-container {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+  margin-right: 350px;
+}
+
+.passport-form-container h2 {
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 22px;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  -webkit-background-clip: text; /* يخلي الخلفية تملي النص */
+  -webkit-text-fill-color: transparent; /* يخفي اللون العادي */
+}
+
+
+/* inputs */
+.passport-form-container input,
+.passport-form-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* button */
+.passport-form-container button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.passport-form-container button:hover {
+ transform: translateY(-4px); 
+}
+
+.header {
+  display: flex;
+  align-items: center; /* يخلي الأيقونة والنص بنفس المستوى العمودي */
+  gap: 10px;           /* مسافة بين الأيقونة والنص */
+  padding: 18px 36px;  /* تحكم بمكانه من فوق وجنب */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: white;
+}
+
+.logo {
+  font-size: 26px;     /* حجم أيقونة ✈ */
+}
+
+.logo-text {
+  font-weight: 700;   /* سماكة النص */
+  font-size: 20px;    /* حجم النص */
+  color: #ffffff;     /* لون أبيض */
+}
+
+
+
+/* ✨ custom file upload */
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 15px;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s;
+  margin-bottom: 10px;
+}
+
+.custom-file-upload:hover {
+  transform: translateY(-4px); 
+}
+
+.file-name {
+  font-size: 14px;
+  color: #333;
+  margin-top: -5px;   /* يرفع النص أقرب للزر */
+  margin-left: 5px;   /* يخليه شوي لليسار */
+  display: block;     /* يخلي النص يجي بسطر جديد */
+  text-align: left;   /* يخلي الكتابة بمحاذاة كبسة اليسار */
+}
+
+
+/* ✨ Animations */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+.header.fade-in {
+  animation-delay: 0.2s;
+}
+
+.image-container.fade-in {
+  animation-delay: 0.6s;
+}
+
+.passport-form-container.fade-in {
+  animation-delay: 1s;
+}
+.upload-row {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* مسافة بين الزر واسم الملف */
+  margin-bottom: 15px;
+  border: 1px solid #ccc;   /* يطلع نفس باقي الحقول */
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.custom-file-upload {
+  background: #2a6f97;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.upload-row input[type="file"] {
+  display: none; /* نخفي input الأصلي */
+}
+
+.file-name {
+  font-size: 14px;
+  color: #333;
+}
+.gender-box {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.gender-label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.gender-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.gender-options label {
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.gender-options input[type="radio"] {
+  accent-color: #2a6f97;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.gender-row {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px; /* مسافة بين العناصر */
+}
+
+.gender-label {
+  font-size: 13px; /* أصغر من قبل */
+  color: #555;
+  font-weight: 500;
+  white-space: nowrap; /* يخليها ما تنزل سطر ثاني */
+}
+
+
+.gender-row label {
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.gender-row input[type="radio"] {
+  accent-color: #2a6f97;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}

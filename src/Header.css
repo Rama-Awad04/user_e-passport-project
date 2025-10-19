@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center; /* يخلي الأيقونة والنص بنفس المستوى العمودي */
+  gap: 10px;           /* مسافة بين الأيقونة والنص */
+  padding: 18px 36px;  /* تحكم بمكانه من فوق وجنب */
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.logo {
+  font-size: 26px;     /* حجم أيقونة ✈ */
+}
+
+.logo-text {
+  font-weight: 700;   /* سماكة النص */
+  font-size: 20px;    /* حجم النص */
+  color: #ffffff;     /* لون أبيض */
+}

@@ -1,0 +1,115 @@
+.fingerprint-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #5daed2, #337799);
+  font-family: Arial, sans-serif;
+}
+
+/* ✅ Box */
+.fingerprint-box {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  width: 350px;
+}
+.header {
+  display: flex;
+  align-items: center;   /* ✅ يخلي اللوجو متوازن عموديًا */
+  gap: 10px;
+  padding: 18px 36px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 60px;          /* ✅ ثبّت ارتفاع الهيدر */
+}
+
+.logo {
+  font-size: 26px;
+  color: #fff;
+  line-height: 1;        /* ✅ يمنع النص يطلع فوق */
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+  line-height: 1 ;        /* ✅ يمنع الاختلاف بالارتفاع */
+}
+
+
+
+
+/* ✨ Logo icon */
+.logo {
+  font-size: 28px;     /* حجم الطيارة */
+  color: #ffffff;       /* لون مميز للطيارة */
+}
+
+.fingerprint-box h2 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 22px;
+}
+
+.fingerprint-box p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* ✅ Image */
+.fingerprint-img {
+  width: 120px;
+  margin: 20px 0;
+  opacity: 0.9;
+}
+
+/* ✅ Button */
+.btn.primary {
+   background: #2a6f97;   /* أزرق غامق */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.btn.primary:hover {
+ transform: translateY(-4px) scale(1.01); box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+}
+.btn.success {
+  background: #2a6f97;  /* أخضر */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.btn.success:hover {
+  transform: translateY(-4px) scale(1.01); box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+}
+.btn.enroll {
+  background: #2a6f97;
+  color:  #ffffff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.btn.enroll:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.16);
+}
