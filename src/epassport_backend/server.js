@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 
 // ======== الاتصال بقاعدة البيانات ========
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'e-passport.me',
   user: 'DB_Rama',          // 👈 عدل حسب إعدادات MySQL
   password: 'RaMa_190704',      // 👈 عدل حسب إعدادات MySQL
   database: 'DB_Epassport' // اسم قاعدة البيانات
