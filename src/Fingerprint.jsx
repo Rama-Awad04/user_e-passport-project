@@ -4,6 +4,7 @@ import "./Fingerprint.css";
 import fingerprintImg from "./image/fingerprint.png";
 import Header from "./Header";
 
+
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
 export default function Fingerprint() {
@@ -17,8 +18,9 @@ export default function Fingerprint() {
 
   // رقم الهوية القادم من صفحة الجواز
   const idNumber = location.state?.idNumber || "";
-
-  const ESP_IP = "192.168.1.28"; // غيّر IP جهاز الاستشعار
+console.log('idNumber from location:', idNumber);
+const ESP_IP = "167.172.111.146";
+ // غيّر IP جهاز الاستشعار
 
   const classifyMessage = (msg = "", status = "") => {
     if (status === "success") return "success";
@@ -75,13 +77,30 @@ export default function Fingerprint() {
         const data = await res.json();
         setStatus(data.message || "Step 2 response");
         setStatusType(classifyMessage(data.message, data.status));
-        if (data.status === "success") {
-          setEnrolled(true);
-          // ✅ تعديل: حفظ sensorId بدل fingerprint_data
-          await saveFingerprintToDB(data.id || data.sensorId);
-        } else if (data.status === "error") {
-          setStep(1);
-        }
+      if (data.status === "success") {
+  setEnrolled(true);
+
+  // ✅ بعد نجاح step=2 اعملي verify فوري للحصول على الـ id النهائي
+  let finalId = data.id || data.sensorId;
+  try {
+    const vRes = await fetch(`http://${ESP_IP}/verify`);
+    const vData = await vRes.json();
+    if (vData?.status === "success" && vData?.id) {
+      finalId = vData.id; // هذا هو الـid الذي سيستخدمه الجهاز في الـLogin
+    }
+  } catch (_) {
+    // لو verify فشل نستخدم finalId الأصلي
+  }
+
+  // ⬅️ احفظي الربط تلقائياً باستخدام الـid النهائي
+  await saveFingerprintToDB(finalId);
+
+  setStatus("Fingerprint enrolled & mapping updated ✅");
+  setStatusType("success");
+} else if (data.status === "error") {
+  setStep(1);
+}
+
       }
     } catch (err) {
       setStatus("Cannot reach device. Check Wi-Fi and IP.");

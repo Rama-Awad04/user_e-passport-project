@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',        // ضع كلمة مرور MySQL الخاصة بك
-  database: 'epassport3'
+const connection = mysql.createConnection({  host: 'localhost',
+    host: 'localhost',
+    user: 'DB_Rama',          // 👈 عدل حسب إعدادات MySQL
+    password: 'RaMa_190704',      // 👈 عدل حسب إعدادات MySQL
+    database: 'DB_Epassport'
 });
 
 connection.connect((err) => {
@@ -12,3 +12,4 @@ connection.connect((err) => {
 });
 
 module.exports = connection;
+

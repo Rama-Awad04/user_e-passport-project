@@ -7,25 +7,26 @@ const bodyParser = require('body-parser');
 // ======== إعدادات السيرفر ========
 const app = express();
 const PORT = 5000;
+const db = require('./db');
 
 app.use(cors());
 app.use(bodyParser.json());
 
 // ======== الاتصال بقاعدة البيانات ========
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'DB_Rama',          // 👈 عدل حسب إعدادات MySQL
-  password: 'RaMa_190704',      // 👈 عدل حسب إعدادات MySQL
-  database: 'DB_Epassport' // اسم قاعدة البيانات
-});
+//const db = mysql.createConnection({
+ // host: 'localhost',
+  //user: 'root',          // 👈 عدل حسب إعدادات MySQL
+  //password: 'root',      // 👈 عدل حسب إعدادات MySQL
+  //database: 'epassport3' // اسم قاعدة البيانات
+//});
 
-db.connect((err) => {
-  if (err) {
-    console.error('❌ خطأ في الاتصال بقاعدة البيانات:', err);
-    return;
-  }
-  console.log('✅ تم الاتصال بقاعدة البيانات MySQL بنجاح');
-});
+//db.connect((err) => {
+  //if (err) {
+    //console.error('❌ خطأ في الاتصال بقاعدة البيانات:', err);
+    //return;
+  //}
+  //console.log('✅ تم الاتصال بقاعدة البيانات MySQL بنجاح');
+//});
 
 // ==========================================================
 // ➕ إضافة جواز جديد
@@ -219,18 +220,57 @@ app.get('/api/lookup-by-sensor/:sensorId', (req, res) => {
 // ==========================================================
 // 🔍 جلب بصمة واحدة بالـ id
 // ==========================================================
-app.get('/api/fingerprints/:id', (req,res)=>{
-   const { id } = req.params;
-   db.query('SELECT * FROM fingerprints WHERE id = ?', [id], (err,rows)=>{
-      if(err) return res.status(500).json({error:'Database error'});
-      if(!rows.length) return res.status(404).json({error:'Not found'});
-      res.json(rows[0]);
-   });
+// ============================================================
+// 🔍 جلب بصمة + بيانات الجواز حسب sensorId
+// ============================================================
+// 🔍 جلب بصمة + بيانات الجواز حسب sensorId (بأسماء أعمدة متوافقة مع الفرونت)
+app.get('/api/fingerprints/by-sensor/:sensorId', (req, res) => {
+  const { sensorId } = req.params;
+
+  const sql = `
+    SELECT 
+      f.id           AS fingerprintId,
+      f.sensorId     AS sensorId,
+      f.idNumber     AS idNumber,
+      p.fullName     AS fullName,
+      p.birthPlace   AS placeOfBirth,
+      p.motherName   AS motherName,
+      p.dob          AS dateOfBirth,
+      p.gender       AS gender,
+      p.passportNumber AS passportNumber,
+      p.issueDate    AS issueDate,
+      p.expiryDate   AS expiryDate
+    FROM fingerprints f
+    LEFT JOIN passports p ON p.idNumber = f.idNumber
+    WHERE f.sensorId = ?
+    LIMIT 1
+  `;
+
+  db.query(sql, [sensorId], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Database error' });
+    if (!rows || rows.length === 0) return res.status(404).json({ error: 'Not found' });
+    res.json(rows[0]);
+  });
 });
+
+
+// ============================================================
+// 🔍 جلب بصمة حسب sensorId (رقمها في جهاز البصمة)
+// ============================================================
+//app.get('/api/fingerprints/by-sensor/:sensorId', (req, res) => {
+  //const { sensorId } = req.params;
+  //db.query('SELECT * FROM fingerprints WHERE sensorId = ?', [sensorId], (err, rows) => {
+    //if (err) return res.status(500).json({ error: 'Database error' });
+    //if (!rows.length) return res.status(404).json({ error: 'Not found' });
+    //res.json(rows[0]);
+  //});
+//});
+
 // ==========================================================
 // 🆕 ربط sensorId مع idNumber (fingerprint-map)
 // ==========================================================
 app.post('/api/fingerprint-map', (req, res) => {
+  console.log('→ /api/fingerprint-map called with:', req.body);
   const { idNumber, sensorId, fingerprint_data } = req.body;
 
   if (!idNumber || !sensorId) {
@@ -257,6 +297,23 @@ app.post('/api/fingerprint-map', (req, res) => {
     }
     res.json({ message: "✅ تم ربط sensorId مع رقم الهوية بنجاح" });
   });
+});
+// ==========================================================
+// 🔄 Proxy endpoint to reach ESP32 device from HTTPS frontend
+// ==========================================================
+const fetch = require('node-fetch'); // 👈 تأكدي من وجود هذا السطر بالأعلى أو هنا
+const DEVICE_URL = process.env.DEVICE_URL;
+
+app.get('/api/device/verify', async (req, res) => {
+  try {
+    const q = req.query.id ? `?id=${encodeURIComponent(req.query.id)}` : '';
+    const response = await fetch(`${DEVICE_URL}/verify${q}`);
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    console.error('❌ Device proxy error:', err.message);
+    res.status(502).json({ status: 'error', message: 'Device unreachable' });
+  }
 });
 
 // ==========================================================

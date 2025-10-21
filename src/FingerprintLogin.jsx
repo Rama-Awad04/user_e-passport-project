@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Fingerprint.css";
 import fingerprintImg from "./image/fingerprint.png";
-console.log(import.meta.env.VITE_API_BASE);
+
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
-const ESP_IP   = "192.168.1.28"; // ⚡ IP جهاز الـ ESP32
+const ESP_IP = "167.172.111.146"; // IP جهاز ESP32 عندك
+console.log(import.meta.env.VITE_API_BASE);
+
+// ⚡ IP جهاز الـ ESP32
 
 export default function FingerprintLogin() {
   const [status, setStatus] = useState("Press button to scan finger.");
@@ -17,13 +20,17 @@ export default function FingerprintLogin() {
     setStatus("Scanning...");
     try {
       // ✅ استدعاء جهاز الـ ESP للحصول على sensorId
-      const espRes = await fetch(`http://${ESP_IP}/verify`);
-      const espData = await espRes.json();
+       const espRes = await fetch(`http://${ESP_IP}/verify`);
 
+
+      const espData = await espRes.json();
+console.log('ESP verify ->', espData);
+console.log('API base ->', API_BASE);
       if (espData.status === "success" && espData.id) {
         // ✅ طلب بيانات الجواز من الباك إند باستخدام sensorId
         
-        const apiRes = await fetch(`${API_BASE}/api/lookup-by-sensor/${espData.id}`);
+       const apiRes = await fetch(`${API_BASE}/api/fingerprints/by-sensor/${espData.id}`);
+
         if (apiRes.ok) {
           const passport = await apiRes.json();
           // نرسل بيانات الجواز مباشرة للصفحة التالية
