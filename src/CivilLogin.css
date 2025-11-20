@@ -1,0 +1,105 @@
+.civil-login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+.civil-login-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 120px;
+}
+
+.civil-login-box {
+  width: 420px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.civil-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.civil-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #e0e0e0;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.input-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-family: 'Poppins';
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.civil-login-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  background: #ffffff;
+  color: #2a6f97;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.civil-login-btn:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-3px);
+}
+.civil-input {
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family: monospace;
+}
+/* ✨ صندوق الدخول يتحرك عند فتح الصفحة */
+.fade-slide {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeSlideIn 0.9s ease forwards;
+}
+
+/* ✨ الحركة */
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}

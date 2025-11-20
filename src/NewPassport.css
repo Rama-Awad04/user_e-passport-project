@@ -1,11 +1,15 @@
+/* newpassport.css */
+
 .new-passport-page {
   display: flex;
   align-items: center;
-  justify-content: center;
+   justify-content: flex-start; 
   height: 100vh;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  gap: -150px;
   overflow: hidden;
+  gap: 60px;            /* مسافة بين البوكس والصورة */
+  padding-top: 80px;    /* عشان الهيدر ما يغطي المحتوى */
+  padding-left: 400px;
 }
 
 /* image */
@@ -16,9 +20,9 @@
 }
 
 .enroll-img {
-  width: 600px;
+  width: 400px;
   height: auto;
-  margin-left: 10px;
+  /* ما في margin-left عشان تكون ملاصقة للـ gap فقط */
 }
 
 /* form box */
@@ -29,7 +33,7 @@
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   width: 350px;
   text-align: center;
-  margin-right: 350px;
+  /* حذفنا margin-right: 350px; */
 }
 
 .passport-form-container h2 {
@@ -37,10 +41,9 @@
   font-weight: bold;
   font-size: 22px;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  -webkit-background-clip: text; /* يخلي الخلفية تملي النص */
-  -webkit-text-fill-color: transparent; /* يخفي اللون العادي */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
 
 /* inputs */
 .passport-form-container input,
@@ -66,14 +69,15 @@
 }
 
 .passport-form-container button:hover {
- transform: translateY(-4px); 
+  transform: translateY(-4px);
 }
 
+/* header */
 .header {
   display: flex;
-  align-items: center; /* يخلي الأيقونة والنص بنفس المستوى العمودي */
-  gap: 10px;           /* مسافة بين الأيقونة والنص */
-  padding: 18px 36px;  /* تحكم بمكانه من فوق وجنب */
+  align-items: center;
+  gap: 10px;
+  padding: 18px 36px;
   position: absolute;
   left: 0;
   top: 0;
@@ -81,18 +85,16 @@
 }
 
 .logo {
-  font-size: 26px;     /* حجم أيقونة ✈ */
+  font-size: 26px;
 }
 
 .logo-text {
-  font-weight: 700;   /* سماكة النص */
-  font-size: 20px;    /* حجم النص */
-  color: #ffffff;     /* لون أبيض */
+  font-weight: 700;
+  font-size: 20px;
+  color: #ffffff;
 }
 
-
-
-/* ✨ custom file upload */
+/* custom file upload (لو احتجتيه لاحقًا) */
 .custom-file-upload {
   display: inline-block;
   padding: 10px 15px;
@@ -107,20 +109,19 @@
 }
 
 .custom-file-upload:hover {
-  transform: translateY(-4px); 
+  transform: translateY(-4px);
 }
 
 .file-name {
   font-size: 14px;
   color: #333;
-  margin-top: -5px;   /* يرفع النص أقرب للزر */
-  margin-left: 5px;   /* يخليه شوي لليسار */
-  display: block;     /* يخلي النص يجي بسطر جديد */
-  text-align: left;   /* يخلي الكتابة بمحاذاة كبسة اليسار */
+  margin-top: -5px;
+  margin-left: 5px;
+  display: block;
+  text-align: left;
 }
 
-
-/* ✨ Animations */
+/* Animations */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -148,33 +149,23 @@
 .passport-form-container.fade-in {
   animation-delay: 1s;
 }
+
+/* upload row */
 .upload-row {
   display: flex;
   align-items: center;
-  gap: 10px; /* مسافة بين الزر واسم الملف */
+  gap: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;   /* يطلع نفس باقي الحقول */
+  border: 1px solid #ccc;
   border-radius: 6px;
   padding: 8px 10px;
 }
 
-.custom-file-upload {
-  background: #2a6f97;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
 .upload-row input[type="file"] {
-  display: none; /* نخفي input الأصلي */
+  display: none;
 }
 
-.file-name {
-  font-size: 14px;
-  color: #333;
-}
+/* gender styles */
 .gender-box {
   width: 100%;
   border: 1px solid #ccc;
@@ -211,6 +202,7 @@
   height: 16px;
   cursor: pointer;
 }
+
 .gender-row {
   width: 100%;
   border: 1px solid #ccc;
@@ -219,16 +211,15 @@
   margin-bottom: 12px;
   display: flex;
   align-items: center;
-  gap: 20px; /* مسافة بين العناصر */
+  gap: 20px;
 }
 
-.gender-label {
-  font-size: 13px; /* أصغر من قبل */
+.gender-row .gender-label {
+  font-size: 13px;
   color: #555;
   font-weight: 500;
-  white-space: nowrap; /* يخليها ما تنزل سطر ثاني */
+  white-space: nowrap;
 }
-
 
 .gender-row label {
   font-size: 14px;

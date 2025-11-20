@@ -1,5 +1,15 @@
 // ======== استيراد المكتبات ========
+require('dotenv').config();        // ← مهم جدًا
 const express = require('express');
+const path = require('path');
+const dotenv = require('dotenv');
+
+// حمّل ملف env الموجود بجانب server.js داخل epassport_backend
+dotenv.config({ path: path.resolve(__dirname, '.env'), override: true });
+
+console.log('📁 ENV FILE LOADED FROM:', path.resolve(__dirname, '.env'));
+console.log('🔧 DEVICE_URL =', process.env.DEVICE_URL);
+
 const mysql = require('mysql2');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -303,7 +313,7 @@ app.post('/api/fingerprint-map', (req, res) => {
 // ==========================================================
 const fetch = require('node-fetch'); // 👈 تأكدي من وجود هذا السطر بالأعلى أو هنا
 const DEVICE_URL = process.env.DEVICE_URL;
-
+console.log('🔧 DEVICE_URL =', DEVICE_URL);
 app.get('/api/device/verify', async (req, res) => {
   try {
     const q = req.query.id ? `?id=${encodeURIComponent(req.query.id)}` : '';
@@ -316,9 +326,23 @@ app.get('/api/device/verify', async (req, res) => {
   }
 });
 
+app.get('/api/device/enroll', async (req, res) => {
+  try {
+    const step = req.query.step || '1';
+    const response = await fetch(`${DEVICE_URL}/enroll?step=${encodeURIComponent(step)}`);
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    console.error('❌ Device enroll proxy error:', err.message);
+    res.status(502).json({ status: 'error', message: 'Device unreachable' });
+  }
+});
+app.get('/api/health', (_req, res) => res.json({ ok: true }));
+
 // ==========================================================
 // تشغيل السيرفر
 // ==========================================================
-app.listen(PORT, () => {
-  console.log(`🚀 السيرفر يعمل على: http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 السيرفر يعمل على: http://0.0.0.0:${PORT}`);
 });
+

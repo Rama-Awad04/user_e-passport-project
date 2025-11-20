@@ -1,9 +1,9 @@
 const mysql = require('mysql2');
-const connection = mysql.createConnection({  host: 'localhost',
+const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'DB_Rama',          // 👈 عدل حسب إعدادات MySQL
-    password: 'RaMa_190704',      // 👈 عدل حسب إعدادات MySQL
-    database: 'DB_Epassport'
+    user: 'root',          // 👈 عدل حسب إعدادات MySQL
+    password: 'root',      // 👈 عدل حسب إعدادات MySQL
+    database: 'epassport3'
 });
 
 connection.connect((err) => {

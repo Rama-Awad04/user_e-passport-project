@@ -4,7 +4,7 @@
   flex-direction: column;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
   color: #fff;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .header {
@@ -13,64 +13,251 @@
   gap: 10px;
   padding: 18px 36px;
 }
-.logo {
-  font-size: 26px;
-}
-.logo-text {
-  font-weight: 700;
-  font-size: 20px;
-}
 
 .passport-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
   padding: 20px;
-padding-top: 160px; 
+  padding-top: 160px;
 }
 
-.title {
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 14px;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+/* wrapper holding box + image */
+.content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
+  margin-top: -90px;
+  margin-left: 120px;
 }
+.card-with-message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;        /* مهم عشان الرسالة تتموضع بالنسبة للكارد */
+}
+
 
 .passport-card {
-  background: #ffffff22;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-  max-width: 400px;
-  margin-top: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
   text-align: left;
-   display: flex;
+  display: flex;
   flex-direction: column;
 }
+
 .passport-card p {
   margin: 6px 0;
-  font-size: 16px;
+  font-size: 17px;
 }
-.home-button {
+
+/* verify button */
+.verify-button {
   margin-top: 20px;
-  padding: 10px 24px;
-  background-color: #fff;
-  color: #2a6f97; /* نفس لون الخلفية تقريباً */
+  padding: 12px 26px;
+  background: #fff;
+  color: #2a6f97;
   border: none;
   border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  align-self: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.verify-button:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+}
+
+/* animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+/* image on the right */
+.passport-image {
+  width: 330px;
+  height: auto;
+  animation: fadeInUp 1.2s ease forwards;
+  opacity: 0;
+  animation-delay: 0.8s;
+  margin-top: -90px;
+}
+
+/* title inside box */
+.box-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 18px;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* الجملة + زر الرجوع بعد التشييك */
+/* الجملة + زر الرجوع بعد التشييك */
+.verified-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verified-msg {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+/* 🌟 زر الرجوع بشكل مرتب */
+button.back-button {
+  padding: 10px 24px;
+  background-color: #ffffff !important;
+  color: #2a6f97 !important;
+  border: none !important;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  align-self: center;
-
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-transform: capitalize;
 }
 
-.home-button:hover {
-  background-color: #f0f0f0;
+button.back-button:hover {
+  background-color: #f0f0f0 !important;
   transform: scale(1.05);
 }
+.decision-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Access button — Blue Gradient */
+.access-button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #5dade2, #2e86c1);  /* 💙 أزرق مدرج */
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.access-button:hover {
+  background: linear-gradient(135deg, #3498db, #1b4f72); /* أزرق أغمق */
+  transform: scale(1.05);
+}
+
+
+/* Deny button — Darker Blue Gradient */
+.deny-button {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #85c1e9, #2874a6); /* 💙 أزرق مدرج فاتح → غامق */
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.deny-button:hover {
+  background: linear-gradient(135deg, #5dade2, #1a5276); /* Hover غامق أكثر */
+  transform: scale(1.05);
+}
+
+.back-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.decision-message {
+  position: absolute;
+  top: -55px;
+  left: 0%;              /* كانت 50% → هيك بتصير لليسار */
+  transform: translateX(-50%);
+
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeInUp 0.3s ease forwards;
+  z-index: 10;
+}
+
+
+/* الألوان تبعتك، خليهّن زي ما هن أو زي ما عدلنا قبل */
+/* رسالة قبول (Access) */
+.decision-message.access {
+  background: rgba(46, 204, 113, 0.9); /* أخضر قوي وواضح */
+  border: 2px solid #2ecc71;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+
+/* رسالة رفض (Deny) — بنفس ستايل الموافقة لكن أحمر */
+.decision-message.deny {
+  background: linear-gradient(135deg, #ff6b6b, #c0392b); /* 🔥 أحمر مدرج */
+  border: 2px solid #e74c3c;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+
+
+
+
+
+
+

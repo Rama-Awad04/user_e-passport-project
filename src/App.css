@@ -1,3 +1,4 @@
+/*App.css*/
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -12,21 +13,8 @@ body { font-family: 'Poppins', sans-serif; }
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
   color: #fff;
   overflow: hidden;
-  position: relative;
+  position: relative; /* مهم لتثبيت الزر أعلى يمين الصفحة */
 }
-
-/* HEADER */
-/*.header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 36px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.logo { font-size: 26px; }
-.logo-text { font-weight: 700; font-size: 20px; }*/
 
 /* MAIN */
 .content {
@@ -71,7 +59,7 @@ body { font-family: 'Poppins', sans-serif; }
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
 }
 .primary {
-  background:  #fff !important;
+  background: #fff !important;
   color: #2a6f97 !important;
   border: none !important;
 }
@@ -92,7 +80,7 @@ body { font-family: 'Poppins', sans-serif; }
   margin-top: 40px; 
 }
 
-/* --- Animation (بالتدريج) --- */
+/* --- Animation --- */
 @keyframes fadeUpSlow {
   from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -109,4 +97,29 @@ body { font-family: 'Poppins', sans-serif; }
 @media (max-width: 480px) {
   .title { font-size: 26px; }
   .btn { width: 220px; padding: 12px; }
+}
+
+/* ------------ Wallet Chip (أعلى يمين) ------------ */
+.wallet-chip {
+  position: absolute;   /* أعلى يمين داخل .page */
+  top: 16px;
+  right: 24px;
+  background: #ffffff;
+  color: #2a6f97;
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 8px 14px;
+  border-radius: 999px;   /* شكل كبسولة */
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.wallet-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+}
+
+/* في الشاشات الصغيرة يكبر قليلًا */
+@media (max-width: 520px) {
+  .wallet-chip { padding: 10px 16px; }
 }

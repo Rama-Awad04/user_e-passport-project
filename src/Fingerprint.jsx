@@ -1,3 +1,4 @@
+//fingerprint.jsx
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Fingerprint.css";
@@ -5,7 +6,12 @@ import fingerprintImg from "./image/fingerprint.png";
 import Header from "./Header";
 
 
-const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+
+//const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000";
+//const ESP_BASE = import.meta.env.VITE_ESP_IP   || "http://10.53.174.7";
+const API_BASE = import.meta.env.VITE_API_BASE || "http://10.84.32.7:5000";
+//const ESP_BASE = "http://192.168.1.16"; // بدون :5000
+
 
 export default function Fingerprint() {
   const [status, setStatus] = useState("Press Start Enrollment to begin.");
@@ -19,8 +25,8 @@ export default function Fingerprint() {
   // رقم الهوية القادم من صفحة الجواز
   const idNumber = location.state?.idNumber || "";
 console.log('idNumber from location:', idNumber);
-const ESP_IP = "167.172.111.146";
- // غيّر IP جهاز الاستشعار
+
+
 
   const classifyMessage = (msg = "", status = "") => {
     if (status === "success") return "success";
@@ -65,7 +71,8 @@ const ESP_IP = "167.172.111.146";
       if (step === 1) {
         setStatus("Place your finger on the sensor...");
         setStatusType("info");
-        const res = await fetch(`http://${ESP_IP}/enroll?step=1`);
+        //const res  = await fetch(`${ESP_BASE}/enroll?step=1`);
+        const res  = await fetch(`${API_BASE}/api/device/enroll?step=1`);
         const data = await res.json();
         setStatus(data.message || "Step 1 response");
         setStatusType(classifyMessage(data.message, data.status));
@@ -73,33 +80,30 @@ const ESP_IP = "167.172.111.146";
       } else if (step === 2) {
         setStatus("Place the same finger again...");
         setStatusType("info");
-        const res = await fetch(`http://${ESP_IP}/enroll?step=2`);
-        const data = await res.json();
-        setStatus(data.message || "Step 2 response");
-        setStatusType(classifyMessage(data.message, data.status));
-      if (data.status === "success") {
-  setEnrolled(true);
+//const res2 = await fetch(`${ESP_BASE}/enroll?step=2`);
+const res2 = await fetch(`${API_BASE}/api/device/enroll?step=2`);
+const data2 = await res2.json();
 
-  // ✅ بعد نجاح step=2 اعملي verify فوري للحصول على الـ id النهائي
-  let finalId = data.id || data.sensorId;
+setStatus(data2.message || "Step 2 response");
+setStatusType(classifyMessage(data2.message, data2.status));
+if (data2.status === "success") {
+  let finalId = data2.id || data2.sensorId;
+
   try {
-    const vRes = await fetch(`http://${ESP_IP}/verify`);
+    //const vRes = await fetch(`${ESP_BASE}/verify`);
+    const vRes = await fetch(`${API_BASE}/api/device/verify`);
     const vData = await vRes.json();
-    if (vData?.status === "success" && vData?.id) {
-      finalId = vData.id; // هذا هو الـid الذي سيستخدمه الجهاز في الـLogin
-    }
-  } catch (_) {
-    // لو verify فشل نستخدم finalId الأصلي
-  }
+    if (vData?.status === "success" && vData?.id) finalId = vData.id;
+  } catch {}
 
-  // ⬅️ احفظي الربط تلقائياً باستخدام الـid النهائي
   await saveFingerprintToDB(finalId);
-
+  setEnrolled(true);
   setStatus("Fingerprint enrolled & mapping updated ✅");
   setStatusType("success");
-} else if (data.status === "error") {
+} else if (data2.status === "error") {
   setStep(1);
 }
+
 
       }
     } catch (err) {
@@ -114,10 +118,7 @@ const ESP_IP = "167.172.111.146";
   return (
     <div className="page">
       <Header />
-      <header className="header">
-        <span className="logo">✈</span>
-        <span className="logo-text">ePassport</span>
-      </header>
+     
 
       <div className="fingerprint-box fade-in">
         <h2>Fingerprint Enrollment</h2>
@@ -131,15 +132,15 @@ const ESP_IP = "167.172.111.146";
                 ? "green"
                 : statusType === "error"
                 ? "red"
-                : "#333",
+                : "#fff",
             fontWeight: statusType === "info" ? "500" : "600",
           }}
         >
           {statusType === "success"
-            ? `✅ ${status}`
+            ? ` ${status}`
             : statusType === "error"
-            ? `❌ ${status}`
-            : `ℹ️ ${status}`}
+            ? ` ${status}`
+            : ` ${status}`}
         </p>
 
         {!enrolled ? (
@@ -151,7 +152,7 @@ const ESP_IP = "167.172.111.146";
           >
             {loading
               ? step === 1
-                ? "Saving first scan..."
+                ? "Processing first scan..."
                 : "Saving confirmation..."
               : step === 1
               ? "Start Enrollment"

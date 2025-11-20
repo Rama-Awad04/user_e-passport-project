@@ -1,0 +1,69 @@
+/* خلفية الصفحة */
+.simple-passport-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 80px;
+}
+
+/* عنوان Passport Data */
+.simple-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* البوكس اللي فيه البيانات */
+.simple-passport-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 25px 40px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  max-width: 600px;
+  width: 100%;
+  text-align: left;
+}
+
+/* النصوص داخل البوكس */
+.simple-passport-box p {
+  margin: 8px 0;
+  font-size: 17px;
+}
+.home-btn-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.home-btn {
+  padding: 10px 32px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2a6f97;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: 0.2s;
+}
+
+.home-btn:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+.simple-title-inside {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffffff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
