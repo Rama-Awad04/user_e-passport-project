@@ -11,7 +11,7 @@ export default function PassportData() {
 
   const formatDate = (d) => {
     if (!d) return "";
-    // إذا التاريخ محفوظ بالعقد بصيغة YYYY-MM-DD رح يتحول تمام
+   
     const date = new Date(d);
     if (isNaN(date)) return d; // لو كان string بصيغة مختلفة
     return date.toLocaleDateString("en-GB");
