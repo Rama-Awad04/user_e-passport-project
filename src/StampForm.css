@@ -1,0 +1,200 @@
+/* صفحة الختم */
+.stamp-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* المحتوى */
+.stamp-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px 60px;
+}
+
+/* الكرت */
+.stamp-card {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.20);
+  width: 420px;
+  animation: fadeInUp 1s ease forwards;
+  margin-top: -30px;
+}
+
+/* عنوان */
+.stamp-card h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* الفورم */
+.stamp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* الليبل */
+.stamp-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ===== Inputs & Selects (WHITE but CLEAR) ===== */
+/* ===== Inputs & Selects (CLEAR WHITE STYLE) ===== */
+/* ===== Inputs & Selects (WHITE CLEAN STYLE) ===== */
+.stamp-form input[type="text"],
+.stamp-form input[type="date"],
+.stamp-form input[type="time"],
+.stamp-form select {
+  padding: 12px 14px;
+  border-radius: 12px;
+
+  background: #ffffff;                 /* أبيض صريح */
+  border: 1.5px solid #cbd5e1;          /* رمادي فاتح */
+
+  color: #0f172a;                       /* أسود/كحلي غامق */
+  font-size: 16px;
+  font-weight: 600;
+
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+  transition: all 0.2s ease;
+}
+
+/* ===== Placeholder ===== */
+.stamp-form input::placeholder {
+  color: #64748b;                       /* رمادي واضح */
+}
+
+/* ===== Focus ===== */
+.stamp-form input:focus,
+.stamp-form select:focus {
+  border-color: #2563eb;                /* أزرق هادئ */
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.25);
+}
+
+/* ===== Select Arrow ===== */
+.stamp-form select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path d='M5.5 7l4.5 4 4.5-4'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 18px;
+}
+
+/* ===== Select Options ===== */
+.stamp-form select option {
+  background-color: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+
+
+
+/* الأزرار */
+.stamp-buttons{
+  display: flex;
+  justify-content: center;
+  width: 100%;          /* ✅ مهم */
+  margin-top: 22px;
+}
+
+
+
+
+.stamp-buttons button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+/* تثبيت زر Go Stamp: ما يتأثر بالستايل العام */
+.stamp-buttons .go-stamp-button{
+  padding: 10px 26px !important;
+  border-radius: 8px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: 0.3s !important;
+
+  /* 👇 هدول خليهّن زي ما كانوا عندك (بدون تغيير لون إذا مش بدك) */
+  background: linear-gradient(135deg, #5dade2, #2e86c1) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.20) !important;
+}
+
+/* زر Go Stamp */
+.go-stamp-button{
+  padding: 10px 26px;
+  background: linear-gradient(135deg, #5dade2, #2e86c1);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.20);
+  text-transform: capitalize;
+  margin: 0 !important;      /* ✅ يزيل أي margin خارجي */
+  position: static !important;
+
+  /* ❌ شيلي هدول */
+  /* display: block; */
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+  /* margin-top: 18px;  <-- خليها بالـ wrapper */
+}
+
+
+.go-stamp-button:hover {
+  background: linear-gradient(135deg, #3498db, #1b4f72);
+  transform: scale(1.05);
+}
+
+/* الحركة */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.stamp-form .stamp-buttons{
+  display: flex !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+.view-stamp-button{
+  background: linear-gradient(135deg, #1b4965, #2a6f97);
+  color: #fff;
+}

@@ -1,5 +1,5 @@
 /* خلفية الصفحة */
-.simple-passport-container {
+.passport-data-page.simple-passport-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
   color: #fff;
@@ -7,11 +7,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 80px;
+  padding-top: 0px;
 }
 
-/* عنوان Passport Data */
-.simple-title {
+/* عنوان Passport Data (لو حتستخدمه برا) */
+.passport-data-page .simple-title {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 25px;
@@ -19,7 +19,7 @@
 }
 
 /* البوكس اللي فيه البيانات */
-.simple-passport-box {
+.passport-data-page .simple-passport-box {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -32,17 +32,18 @@
 }
 
 /* النصوص داخل البوكس */
-.simple-passport-box p {
+.passport-data-page .simple-passport-box p {
   margin: 8px 0;
   font-size: 17px;
 }
-.home-btn-wrapper {
+
+.passport-data-page .home-btn-wrapper {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-.home-btn {
+.passport-data-page .home-btn {
   padding: 10px 32px;
   border-radius: 10px;
   border: none;
@@ -55,15 +56,175 @@
   transition: 0.2s;
 }
 
-.home-btn:hover {
+.passport-data-page .home-btn:hover {
   background: #ffffff;
   transform: translateY(-2px);
 }
-.simple-title-inside {
+
+.passport-data-page .simple-title-inside {
   text-align: center;
   font-size: 26px;
   font-weight: 700;
   margin-bottom: 20px;
   color: #ffffff;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* ترتيب الصورة والبوكس جنب بعض */
+.passport-data-page .user-passport-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
+
+  /* ✅ شلينا السالب لأنه هو اللي كان بخرب التوسيط */
+  margin-left: 0;
+  justify-content: center;
+}
+
+/* حجم صورة المستخدم */
+.passport-data-page .user-passport-img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+/* استجابة للموبايل */
+@media (max-width: 900px) {
+  .passport-data-page .user-passport-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .passport-data-page .user-passport-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .passport-data-page .simple-passport-box {
+    max-width: 90%;
+  }
+}
+/* ===== PassportData page scoped ===== */
+.passport-data-page{
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.passport-data-page .pd-layout{
+  width: min(680px, 92vw);
+  margin-top: 60px;
+}
+
+.passport-data-page .pd-box{
+  background: rgba(255,255,255,0.16);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 14px;
+  padding: 26px 30px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+}
+
+.passport-data-page .pd-content{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.passport-data-page .pd-text{
+  flex: 1;
+  min-width: 0;
+}
+
+.passport-data-page .pd-title{
+  text-align: left;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #ffffff;
+  text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.passport-data-page .pd-text p{
+  margin: 8px 0;
+  line-height: 1.35;
+}
+
+/* صورة المستخدم - نفس فكرة الموظف */
+.passport-data-page .pd-photo{
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 0;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255,255,255,0.22);
+}
+
+.passport-data-page .pd-img{
+  width: 150px;
+  height: 190px;
+  object-fit: cover;
+  object-position: center top;
+
+  background: #f7f7f7;
+  border: 2px solid #0b4f6c;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.14);
+}
+
+/* زر */
+.passport-data-page .pd-btn-wrap {
+  margin-top: 20px;
+  display: flex;
+ justify-content: center;
+  width: 100%;            /* 👈 مهم */
+}
+
+
+.passport-data-page .pd-btn{
+  padding: 10px 32px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2a6f97;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.2s;
+  transform: none;           /* ✅ مهم */
+}
+
+.passport-data-page .pd-btn:hover{
+  background: #ffffff;
+  transform: translateY(-2px);  /* ✅ بس طلعة لفوق */
+}
+
+
+
+/* موبايل */
+@media (max-width: 520px){
+  .passport-data-page .pd-content{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .passport-data-page .pd-photo{
+    padding-left: 0;
+    border-left: 0;
+    margin-top: 10px;
+  }
 }

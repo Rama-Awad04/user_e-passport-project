@@ -1,3 +1,4 @@
+// Header.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaPassport } from "react-icons/fa";
@@ -7,29 +8,20 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header
-      className="header"
-      onClick={() => navigate("/")}
-      style={{ cursor: "pointer" }}
-    >
-      <span className="logo">
-        <FaPassport />
-      </span>
-
-      {/* 👇 شلنا الكلاس، واستعملنا inline style عشان نقطع أي تضارب */}
-      <span
-        style={{
-          fontWeight: 700,
-          fontSize: "22px",
-          color: "#ffffff",
-          letterSpacing: "0.5px",
-          position: "relative",
-          top: "-5px",
-          whiteSpace: "nowrap",
+    <header className="ep-header">
+      <div
+        className="ep-header-left"
+        onClick={() => navigate("/")}
+        role="button"
+        tabIndex={0}
+        style={{ cursor: "pointer" }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") navigate("/");
         }}
       >
-        e-passport
-      </span>
+        <FaPassport className="ep-logo" />
+        <span className="ep-header-text">e-passport</span>
+      </div>
     </header>
   );
 }

@@ -1,13 +1,13 @@
-/*index.css
-/* Reset المسافات الافتراضية للمتصفح */
+/* index.css */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* خلي الجسم كله يغطي الشاشة */
-html, body, #root {
+html,
+body,
+#root {
   height: 100%;
   width: 100%;
 }

@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+// PassportData.jsx
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./PassportData.css";
 import Header from "./Header";
+
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_BASE ||
+  "http://localhost:5000";
 
 export default function PassportData() {
   const location = useLocation();
@@ -9,13 +15,28 @@ export default function PassportData() {
   const passport = location.state?.passport;
 
   const [decisionMade, setDecisionMade] = useState(null); // null | "access" | "deny"
+  const [photoUrl, setPhotoUrl] = useState("");
 
-  if (!passport)
+  useEffect(() => {
+    const id = passport?.idNumber;
+    if (!id) return;
+
+    fetch(`${API_BASE_URL}/api/passports/${id}/photo`)
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((data) => {
+        const clean = (data.photoUrl || "").replace(/\s+/g, "");
+        setPhotoUrl(clean);
+      })
+      .catch(() => setPhotoUrl(""));
+  }, [passport?.idNumber]);
+
+  if (!passport) {
     return (
       <p style={{ textAlign: "center", marginTop: 50 }}>
         ❌ No passport data provided
       </p>
     );
+  }
 
   const fmt = (v) => {
     if (!v) return "-";
@@ -26,93 +47,141 @@ export default function PassportData() {
   const placeOfBirth = passport.placeOfBirth ?? passport.birthPlace ?? "-";
   const dateOfBirth = passport.dateOfBirth ?? passport.dob ?? null;
 
+  // ✅ فقط الصورة المختارة من الفورم — بدون fallback
+  const imgSrc = photoUrl ? `${photoUrl}?v=${Date.now()}` : "";
+
   return (
     <div className="passport-page">
       <Header />
 
       <main className="passport-content fade-in">
         <div className="content-wrapper">
-          {/* 🔹 عمود فيه الرسالة + البوكس */}
           <div className="card-with-message">
-            {/* 🔔 الرسالة فوق البوكس مباشرة */}
+            {/* ✅ رسالة القرار فوق الكارد */}
             {decisionMade && (
               <div className={`decision-message ${decisionMade}`}>
                 {decisionMade === "access"
-                  ? "Passport approved"
-                  : "Passport rejected"}
+                  ? " Passport Approved"
+                  : " Passport Rejected"}
               </div>
             )}
 
-            <div className="passport-card fade-in">
-              <h2 className="box-title">Passport Data</h2>
+            {/* ✅ نفس ديزاين القديم: نص يسار + صورة يمين */}
+            <div className="passport-card passport-emp-style">
+              <div className="passport-emp-content">
+                {/* LEFT */}
+                <div className="passport-emp-text">
+                  <h2 className="passport-emp-title">Passport Data</h2>
 
-              <p>
-                <b>Full Name:</b> {passport.fullName ?? "-"}
-              </p>
-              <p>
-                <b>National ID:</b> {passport.idNumber ?? "-"}
-              </p>
-              <p>
-                <b>Place of Birth:</b> {placeOfBirth}
-              </p>
-              <p>
-                <b>Date of Birth:</b> {fmt(dateOfBirth)}
-              </p>
-              <p>
-                <b>Mother Name:</b> {passport.motherName ?? "-"}
-              </p>
-              <p>
-                <b>Gender:</b> {passport.gender ?? "-"}
-              </p>
-              <p>
-                <b>Passport Number:</b> {passport.passportNumber ?? "-"}
-              </p>
-              <p>
-                <b>Issue Date:</b> {fmt(passport.issueDate)}
-              </p>
-              <p>
-                <b>Expiry Date:</b> {fmt(passport.expiryDate)}
-              </p>
+                  <p>
+                    <b>Full Name:</b> {passport.fullName ?? "-"}
+                  </p>
+                  <p>
+                    <b>National ID:</b> {passport.idNumber ?? "-"}
+                  </p>
+                  <p>
+                    <b>Place of Birth:</b> {placeOfBirth}
+                  </p>
+                  <p>
+                    <b>Mother’s Name:</b> {passport.motherName ?? "-"}
+                  </p>
+                  <p>
+                    <b>Date of Birth:</b> {fmt(dateOfBirth)}
+                  </p>
+                  <p>
+                    <b>Gender:</b> {passport.gender ?? "-"}
+                  </p>
+                  <p>
+                    <b>Passport Number:</b> {passport.passportNumber ?? "-"}
+                  </p>
+                  <p>
+                    <b>Issue Date:</b> {fmt(passport.issueDate)}
+                  </p>
+                  <p>
+                    <b>Expiry Date:</b> {fmt(passport.expiryDate)}
+                  </p>
 
-              {/* أزرار Access / Deny قبل القرار */}
-              {!decisionMade && (
-                <div className="decision-buttons">
-                  <button
-                    className="access-button"
-                    onClick={() => setDecisionMade("access")}
-                  >
-                    Access
-                  </button>
+                  {/* ✅ أزرار Access / Deny قبل اتخاذ القرار */}
+                  {!decisionMade && (
+                    <div className="decision-buttons">
+                      <button
+                        type="button"
+                        className="access-button"
+                        onClick={() => setDecisionMade("access")}
+                      >
+                        Access
+                      </button>
 
-                  <button
-                    className="deny-button"
-                    onClick={() => setDecisionMade("deny")}
-                  >
-                    Deny
-                  </button>
+                      <button
+                        type="button"
+                        className="deny-button"
+                        onClick={() => setDecisionMade("deny")}
+                      >
+                        Deny
+                      </button>
+                    </div>
+                  )}
+
+                  {/* ✅ Access → Go Stamp (يمين) */}
+                  {decisionMade === "access" && (
+                    <div className="back-wrapper">
+                      <button
+                        type="button"
+                        className="go-stamp-button"
+                        onClick={() =>
+                          navigate("/stamp-form", {
+                            state: {
+                              idNumber: passport.idNumber,
+                              passportNumber: passport.passportNumber || null,
+                            },
+                          })
+                        }
+                      >
+                        Stamp Passport
+                      </button>
+                    </div>
+                  )}
+
+                  {/* ✅ Deny → go home (يمين) */}
+                  {decisionMade === "deny" && (
+                    <div className="back-wrapper">
+                      <button
+                        type="button"
+                        className="back-button"
+                        onClick={() => navigate("/fingerprint-login")}
+                      >
+                        Go Home
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
 
-              {/* زر Back بعد اتخاذ القرار */}
-              {decisionMade && (
-                <div className="back-wrapper">
-                  <button
-                    className="back-button"
-                    onClick={() => navigate("/fingerprint-login")}
-                  >
-                    Back
-                  </button>
-                </div>
-              )}
+                {/* RIGHT (الصورة الكبيرة) */}
+                {imgSrc && (
+                  <div className="passport-emp-photo">
+                    <img
+                      src={imgSrc}
+                      alt="passport owner"
+                      className="passport-emp-img"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
 
-          {/* الصورة على اليمين */}
-          <img
-            src="/airplane.png"
-            className="passport-image"
-            alt="passport graphic"
-          />
+            {/* ✅ إذا بدك كمان زر go home حتى بعد Access (اختياري)
+            {decisionMade === "access" && (
+              <div className="back-wrapper">
+                <button
+                  type="button"
+                  className="back-button"
+                  onClick={() => navigate("/fingerprint-login")}
+                >
+                  go home
+                </button>
+              </div>
+            )} */}
+          </div>
         </div>
       </main>
     </div>

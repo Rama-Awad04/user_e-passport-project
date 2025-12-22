@@ -1,227 +1,96 @@
-/* newpassport.css */
+/* NewPassport.css */
 
 .new-passport-page {
-  display: flex;
-  align-items: center;
-   justify-content: flex-start; 
-  height: 100vh;
-  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  overflow: hidden;
-  gap: 60px;            /* مسافة بين البوكس والصورة */
-  padding-top: 80px;    /* عشان الهيدر ما يغطي المحتوى */
-  padding-left: 400px;
-}
-
-/* image */
-.image-container {
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  padding-top: 35px;
+  padding-inline: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
-.enroll-img {
-  width: 400px;
-  height: auto;
-  /* ما في margin-left عشان تكون ملاصقة للـ gap فقط */
-}
-
-/* form box */
-.passport-form-container {
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  width: 350px;
+.new-passport-page .passport-form-container {
+  width: 390px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
   text-align: center;
-  /* حذفنا margin-right: 350px; */
+  transition: background 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
 }
 
-.passport-form-container h2 {
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 22px;
-  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* inputs */
-.passport-form-container input,
-.passport-form-container select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-/* button */
-.passport-form-container button {
-  width: 100%;
-  padding: 10px;
-  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  border: none;
-  color: white;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.passport-form-container button:hover {
-  transform: translateY(-4px);
-}
-
-/* header */
-.header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 18px 36px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: white;
-}
-
-.logo {
-  font-size: 26px;
-}
-
-.logo-text {
+.new-passport-page .passport-form-container h2 {
+  margin-bottom: 10px;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 24px;
   color: #ffffff;
 }
 
-/* custom file upload (لو احتجتيه لاحقًا) */
-.custom-file-upload {
-  display: inline-block;
-  padding: 10px 15px;
-  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
+/* inputs */
+.new-passport-page .passport-form-container input,
+.new-passport-page .passport-form-container select {
+  width: 100%;
+  padding: 11px 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
   font-size: 14px;
-  font-weight: bold;
-  transition: 0.3s;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* زر Next */
+.new-passport-page .passport-form-container button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1b4965, #2a6f97);
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.new-passport-page .passport-form-container button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-3px);
+}
+
+/* gender row */
+.new-passport-page .gender-row {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
   margin-bottom: 10px;
-}
-
-.custom-file-upload:hover {
-  transform: translateY(-4px);
-}
-
-.file-name {
-  font-size: 14px;
-  color: #333;
-  margin-top: -5px;
-  margin-left: 5px;
-  display: block;
-  text-align: left;
-}
-
-/* Animations */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in {
-  opacity: 0;
-  animation: fadeInUp 1.2s ease forwards;
-}
-
-.header.fade-in {
-  animation-delay: 0.2s;
-}
-
-.image-container.fade-in {
-  animation-delay: 0.6s;
-}
-
-.passport-form-container.fade-in {
-  animation-delay: 1s;
-}
-
-/* upload row */
-.upload-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px 10px;
-}
-
-.upload-row input[type="file"] {
-  display: none;
-}
-
-/* gender styles */
-.gender-box {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
-  margin-bottom: 12px;
-  text-align: left;
-}
-
-.gender-label {
-  display: block;
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
-.gender-options {
-  display: flex;
-  justify-content: space-between;
-}
-
-.gender-options label {
-  font-size: 14px;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-}
-
-.gender-options input[type="radio"] {
-  accent-color: #2a6f97;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-}
-
-.gender-row {
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 10px;
-  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
 }
 
-.gender-row .gender-label {
+.new-passport-page .gender-row .gender-label {
   font-size: 13px;
   color: #555;
   font-weight: 500;
   white-space: nowrap;
 }
 
-.gender-row label {
+.new-passport-page .gender-row label {
   font-size: 14px;
   color: #333;
   display: flex;
@@ -230,9 +99,80 @@
   cursor: pointer;
 }
 
-.gender-row input[type="radio"] {
+.new-passport-page .gender-row input[type="radio"] {
   accent-color: #2a6f97;
   width: 16px;
   height: 16px;
   cursor: pointer;
+}
+
+/* upload */
+.new-passport-page .file-upload-box {
+  position: relative;
+  width: 100%;
+  height: 38px;
+  margin-bottom: 10px;
+}
+
+.new-passport-page .file-visible-text {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #777;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  transition: background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.new-passport-page .file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* logout fixed */
+.new-passport-page .np-top-right {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.new-passport-page .np-logout-btn {
+  position: static;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: #fff;
+  color: #2a6f97;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.new-passport-page .np-logout-btn:hover {
+  background: transparent;
+  color: #fff;
+}
+
+/* animation (scoped) */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.new-passport-page .fade-in {
+  opacity: 0;
+  animation: fadeInUp 1.2s ease forwards;
 }

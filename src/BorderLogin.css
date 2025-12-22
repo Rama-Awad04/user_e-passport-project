@@ -1,0 +1,194 @@
+/* BorderLogin.css */
+
+.border-login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #003049, #669bbc);
+  font-family: "Poppins", sans-serif;
+  color: #ffffff;
+}
+
+.border-login-page .border-login-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 50px;
+  margin-top: 100px;
+  padding-left: 80px;
+}
+
+.border-login-page .border-img-left {
+  width: 380px;
+  height: auto;
+  margin-right: -20px;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.25));
+}
+
+.border-login-page .border-login-box {
+  width: 430px;
+  padding: 42px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+}
+
+.border-login-page .border-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 6px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.border-login-page .border-subtitle {
+  text-align: center;
+  font-size: 17px;
+  margin-bottom: 28px;
+  color: #f1f1f1;
+}
+
+/* ✅ Scoped inputs (no conflict) */
+.border-login-page .input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.border-login-page .input-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.border-login-page .input-group input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: "Poppins";
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  background: #ffffffd9;
+}
+
+/* ✅ Password eye toggle (scoped) */
+.border-login-page .password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.border-login-page .password-input {
+  width: 100%;
+  padding: 12px 48px 12px 14px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-family: "Poppins";
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  background: #ffffffd9;
+}
+
+/* زر العين */
+.border-login-page .toggle-password {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.border-login-page .toggle-password svg {
+  font-size: 18px;
+  color: #1e3a5f;
+}
+
+.border-login-page .toggle-password:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* شيل زر المتصفح الافتراضي (بعض المتصفحات) */
+.border-login-page .password-input::-ms-reveal,
+.border-login-page .password-input::-ms-clear {
+  display: none;
+}
+
+/* ✅ error scoped */
+.border-login-page .error-text {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #ffe1e1;
+}
+
+/* ✅ login button (ثابت أزرق) */
+.border-login-page .border-login-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px;
+  font-size: 18px;
+  font-weight: 600;
+
+  background-color: #2a6f97;
+  background-image: linear-gradient(135deg, #1b4965, #2a6f97);
+
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.border-login-page .border-login-btn:hover {
+  filter: brightness(1.05);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.border-login-page .border-login-btn:disabled {
+  background-color: #2a6f97;
+  background-image: linear-gradient(135deg, #1b4965, #2a6f97);
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ✅ animation scoped */
+.border-login-page .slide-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideFadeIn 0.9s ease forwards;
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}

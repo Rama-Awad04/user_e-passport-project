@@ -1,27 +1,33 @@
-.header {
+/* Header.css */
+.ep-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 18px 36px;
+}
+
+.ep-header-left {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 18px 36px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 50;
 }
 
-/* أيقونة الجواز */
-.header .logo {
+.ep-logo {
   font-size: 32px;
   color: #ffffff;
 }
 
-/* نص e-passport – كلاس جديد خاص بالهيدر */
-.header .header-logo-text {
-  font-weight: 700;
+.ep-header-text {
   font-size: 22px;
+  font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.5px;
   position: relative;
-  top: -5px;         /* يرفع النص شوي */
-  white-space: nowrap; /* يمنع الانقسام على سطرين */
+  top: -4px;
 }

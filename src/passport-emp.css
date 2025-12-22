@@ -1,0 +1,136 @@
+/* passport-emp.css */
+
+/* wrapper */
+.emp-passport-page {
+  min-height: 100vh;
+}
+
+/* صفحة الموظف فقط */
+.emp-passport-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding-top: 0;
+}
+
+/* layout */
+.emp-passport-layout {
+  width: min(680px, 92vw);
+  margin-top: -30px;
+}
+
+@media (max-width: 900px) {
+  .emp-passport-layout {
+    transform: none;
+  }
+}
+
+.emp-passport-box {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  padding: 22px 24px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+  transition: background 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
+}
+
+.emp-passport-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.emp-passport-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.emp-passport-title {
+  text-align: left;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #ffffff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.emp-passport-text p {
+  margin: 8px 0;
+  line-height: 1.35;
+}
+
+.emp-passport-photo {
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 0;
+}
+
+.emp-passport-img {
+  width: 150px;
+  height: 190px;
+  object-fit: cover;
+  object-position: center top;
+
+  background: #f7f7f7;
+  border: 2px solid #0b4f6c;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+}
+
+/* زر Go Home */
+.emp-btn-wrap {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 180px;
+}
+
+.emp-btn {
+  width: 220px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: #2a6f97;
+
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+.emp-btn:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* موبايل */
+@media (max-width: 520px) {
+  .emp-passport-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .emp-passport-photo {
+    padding-left: 0;
+    border-left: none;
+    margin-top: 14px;
+  }
+}

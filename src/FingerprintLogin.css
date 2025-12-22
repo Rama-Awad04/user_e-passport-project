@@ -1,5 +1,6 @@
-/* الصفحة العامة */
-.page {
+/* FingerprintLogin.css */
+/* ✅ Scoped بالكامل لمنع أي تضارب مع باقي الصفحات */
+.fp-login-scope .page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,24 +10,24 @@
   font-family: Arial, sans-serif;
 }
 
-.fingerprint-page {
+.fp-login-scope .fingerprint-page {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* حاوية البوكس + الصورة على اليمين */
-.content-wrapper {
+/* (اختياري) إذا لاحقًا رجّعتي صورة يمين/يسار */
+.fp-login-scope .content-wrapper {
   display: flex;
   align-items: center;
- justify-content: flex-end;
- margin-right: -50px;
-  gap: 80px;             /* مسافة بين الصورة والبوكس */
+  justify-content: flex-end;
+  margin-right: -50px;
+  gap: 80px;
   margin-top: 40px;
 }
 
 /* الصندوق */
-.fingerprint-box {
+.fp-login-scope .fingerprint-box {
   background: rgba(240, 237, 237, 0.25);
   padding: 32px 40px;
   border-radius: 20px;
@@ -39,21 +40,21 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.fingerprint-box:hover {
+.fp-login-scope .fingerprint-box:hover {
   transform: translateY(-4px);
   box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
 }
 
-.fingerprint-box h2 {
+.fp-login-scope .fingerprint-box h2 {
   margin-bottom: 8px;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 700;
   letter-spacing: 0.3px;
   text-shadow: 0 1px 3px rgba(0,0,0,0.25);
 }
 
-.fingerprint-box p {
+.fp-login-scope .fingerprint-box p {
   font-size: 15px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
@@ -62,22 +63,22 @@
 }
 
 /* صورة البصمة */
-.fingerprint-img {
+.fp-login-scope .fingerprint-img {
   width: 120px;
   margin: 20px 0;
   opacity: 0.95;
-  animation: pulse 1.0s infinite ease-in-out;
+  animation: fpLoginPulse 1.0s infinite ease-in-out;
   filter: brightness(0) invert(1);
 }
 
-@keyframes pulse {
+@keyframes fpLoginPulse {
   0% { transform: scale(1); opacity: 0.9; }
   50% { transform: scale(1.07); opacity: 1; }
   100% { transform: scale(1); opacity: 0.9; }
 }
 
 /* زرّ Scan */
-.btn.enroll {
+.fp-login-scope .btn.enroll {
   background: linear-gradient(135deg, #337fb3 0%, #3a8cc4 100%);
   color: #ffffff;
   padding: 12px 32px;
@@ -88,32 +89,78 @@
   font-weight: 500;
   letter-spacing: 0.4px;
   transition: transform 0.18s ease, box-shadow 0.18s ease;
-  animation: buttonPulse 8s infinite ease-in-out;
+  animation: fpLoginButtonPulse 8s infinite ease-in-out;
 }
 
-@keyframes buttonPulse {
+@keyframes fpLoginButtonPulse {
   0% { transform: scale(1); box-shadow: 0 0 0px rgba(51, 127, 179, 0.35); }
   50% { transform: scale(1.07); box-shadow: 0 0 12px rgba(51, 127, 179, 0.55); }
   100% { transform: scale(1); box-shadow: 0 0 0px rgba(51, 127, 179, 0.35); }
 }
 
-.btn.enroll:hover {
+.fp-login-scope .btn.enroll:hover {
   animation: none;
   transform: translateY(-1px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
 }
 
-/* 🎯 الصورة على اليمين */
-.side-image {
-  width: 340px;          /* حجم الصورة */
+/* (اختياري) إذا عندك صورة جانبية */
+.fp-login-scope .side-image {
+  width: 340px;
   height: auto;
   opacity: 0.95;
-  animation: float 3s infinite ease-in-out;
-  margin-top: -90px; 
+  animation: fpLoginFloat 3s infinite ease-in-out;
+  margin-top: -90px;
 }
 
-@keyframes float {
+@keyframes fpLoginFloat {
   0%   { transform: translateY(0); }
   50%  { transform: translateY(-10px); }
   100% { transform: translateY(0); }
+}
+
+/* زر Logout */
+.fp-login-scope .logout-btn {
+  position: fixed;
+  top: 16px;
+  right: 24px;
+  background: #fff;
+  color: #1e3a5f;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  transition: all 0.2s ease;
+  z-index: 999;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fp-login-scope .logout-btn:hover {
+  background: #f1f5f9;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.fp-login-scope .logout-btn:active {
+  transform: scale(0.96);
+}
+
+.fp-login-scope .logout-btn:focus {
+  outline: none;
+  color: #1e3a5f;
+}
+
+/* ✅ أنيميشن دخول معزول (بدل fade-in العام) */
+.fp-login-scope .fade-in {
+  opacity: 0;
+  animation: fpLoginFadeIn 1s ease forwards;
+}
+
+@keyframes fpLoginFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

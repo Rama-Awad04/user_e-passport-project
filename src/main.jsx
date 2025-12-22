@@ -11,6 +11,10 @@ import PassportData from "./PassportData";
 import UserPage from "./UserPage"; // استدعاء الصفحة الجديدة
 import TempPassportPage from "./TempPassportPage";
 import CivilLogin from "./CivilLogin";
+import BorderLogin from "./BorderLogin";
+import PassportEmp from "./passport-emp"; 
+import StampForm from "./StampForm";
+import StampData from "./StampData";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -24,6 +28,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/UserPage" element={<UserPage />} />
         <Route path="/loading-passport" element={<TempPassportPage />} />
         <Route path="/civil-login" element={<CivilLogin />} />
+        <Route path="/border-login" element={<BorderLogin />} />
+        <Route path="/passport-emp" element={<PassportEmp />} /> 
+        <Route path="/stamp-form" element={<StampForm />} />
+        <Route path="/StampData" element={<StampData />} />
 
       </Routes>
     </Router>
