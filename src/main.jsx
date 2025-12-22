@@ -16,6 +16,27 @@ import PassportEmp from "./passport-emp";
 import StampForm from "./StampForm";
 import StampData from "./StampData";
 
+if (window.location.hostname === "user.e-passport.me") {
+  const originalFetch = window.fetch;
+
+  window.fetch = (input, init) => {
+    const url = typeof input === "string" ? input : (input?.url || "");
+
+    // امنعي أي استدعاء API قديم
+    if (
+      url.includes("localhost:5000") ||
+      url.includes("/api/") ||
+      url.startsWith("http://localhost:5000")
+    ) {
+      console.warn("Blocked API request on user domain:", url);
+      return Promise.reject(
+        new Error("API is disabled on user.e-passport.me (Blockchain only).")
+      );
+    }
+
+    return originalFetch(input, init);
+  };
+}
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Router>
