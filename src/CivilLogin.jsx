@@ -54,69 +54,67 @@ export default function CivilLogin() {
   };
 
   return (
-    <div className="civil-login-page">
-      <Header />
+    <div className="cl-scope">
+      <div className="civil-login-page">
+        <Header />
 
-      <div className="civil-login-container">
-        <div className="civil-login-illustration">
-          <img src="/ahwal.png" alt="Civil registry illustration" />
-        </div>
+        <div className="civil-login-container">
+          <div className="civil-login-illustration">
+            <img src="/ahwal.png" alt="Civil registry illustration" />
+          </div>
 
-        <div className="civil-login-box fade-slide">
-          <h2 className="civil-title">Civil Registry Portal</h2>
-          <p className="civil-subtitle">Staff Login</p>
+          <div className="civil-login-box fade-slide">
+            <h2 className="civil-title">Civil Registry Portal</h2>
+            <p className="civil-subtitle">Staff Login</p>
 
-          <form onSubmit={handleSubmit} autoComplete="new-password">
-
-            <div className="input-group">
-              <label htmlFor="staffCode">Staff Code</label>
-              <input
-                id="staffCode"
-                name="staffCode"
-                type="text"
-                placeholder="Enter your staff code (CIV-1001)"
-                value={staffCode}
-                onChange={(e) => setStaffCode(e.target.value)}
-                className="civil-input"
-               autoComplete="new-password"
-
-
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="password">Password</label>
-
-              <div className="password-wrapper">
+            <form onSubmit={handleSubmit} autoComplete="new-password">
+              <div className="input-group">
+                <label htmlFor="staffCode">Staff Code</label>
                 <input
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  id="staffCode"
+                  name="staffCode"
+                  type="text"
+                  placeholder="Enter your staff code (CIV-1001)"
+                  value={staffCode}
+                  onChange={(e) => setStaffCode(e.target.value)}
                   className="civil-input"
                   autoComplete="new-password"
-
                 />
-
-                <button
-                  type="button"
-                  className="toggle-password"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                  aria-label="Toggle password visibility"
-                >
-                  {showPassword ? <FiEyeOff /> : <FiEye />}
-                </button>
               </div>
-            </div>
 
-            {error && <p className="error-text">{error}</p>}
+              <div className="input-group">
+                <label htmlFor="password">Password</label>
 
-            <button className="civil-login-btn" type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
-            </button>
-          </form>
+                <div className="password-wrapper">
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter your password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="civil-input password-input"
+                    autoComplete="new-password"
+                  />
+
+                  <button
+                    type="button"
+                    className="toggle-password"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label="Toggle password visibility"
+                  >
+                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                  </button>
+                </div>
+              </div>
+
+              {error && <p className="error-text">{error}</p>}
+
+              <button className="civil-login-btn" type="submit" disabled={loading}>
+                {loading ? "Logging in..." : "Login"}
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -1,19 +1,18 @@
-// src/PassportData.jsx
+// TempPassportPage.jsx
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./Header";
-import "./temp.css";
+import "./TempPassportPage.css";
 
-export default function PassportData() {
+export default function TempPassportPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const passport = state?.passport;
 
   const formatDate = (d) => {
     if (!d) return "";
-   
     const date = new Date(d);
-    if (isNaN(date)) return d; // لو كان string بصيغة مختلفة
+    if (isNaN(date)) return d;
     return date.toLocaleDateString("en-GB");
   };
 
@@ -22,69 +21,49 @@ export default function PassportData() {
   }
 
   const photoUrl = (passport.photoUrl || "").replace(/\s+/g, "");
-  const hasPhoto = !!photoUrl;
+  const hasPhoto = Boolean(photoUrl);
 
   return (
-    <>
+    <div className="tp-scope">
       <Header />
 
-      <div className="passport-data-page">
-        <div className="pd-layout">
-          <div className="pd-box">
-            <div className="pd-content">
-              {/* النص */}
-              <div className="pd-text">
-                <h1 className="pd-title">Passport Data</h1>
+      <div className="tp-page">
+        <div className="tp-layout">
+          <div className="tp-box">
+            <div className="tp-content">
+              <div className="tp-text">
+                <h1 className="tp-title">Passport Data</h1>
 
-                <p>
-                  <strong>Full Name:</strong> {passport.fullName}
-                </p>
-                <p>
-                  <strong>National ID:</strong> {passport.idNumber}
-                </p>
-                <p>
-                  <strong>Place of Birth:</strong> {passport.birthPlace}
-                </p>
-                <p>
-                  <strong>Mother Name:</strong> {passport.motherName}
-                </p>
-                <p>
-                  <strong>Date of Birth:</strong> {formatDate(passport.dob)}
-                </p>
-                <p>
-                  <strong>Gender:</strong> {passport.gender}
-                </p>
-                <p>
-                  <strong>Passport Number:</strong> {passport.passportNumber}
-                </p>
-                <p>
-                  <strong>Issue Date:</strong> {formatDate(passport.issueDate)}
-                </p>
-                <p>
-                  <strong>Expiry Date:</strong> {formatDate(passport.expiryDate)}
-                </p>
+                <p><strong>Full Name:</strong> {passport.fullName}</p>
+                <p><strong>National ID:</strong> {passport.idNumber}</p>
+                <p><strong>Place of Birth:</strong> {passport.birthPlace}</p>
+                <p><strong>Mother Name:</strong> {passport.motherName}</p>
+                <p><strong>Date of Birth:</strong> {formatDate(passport.dob)}</p>
+                <p><strong>Gender:</strong> {passport.gender}</p>
+                <p><strong>Passport Number:</strong> {passport.passportNumber}</p>
+                <p><strong>Issue Date:</strong> {formatDate(passport.issueDate)}</p>
+                <p><strong>Expiry Date:</strong> {formatDate(passport.expiryDate)}</p>
 
-                <div className="pd-btn-wrap">
+                <div className="tp-btn-wrap">
                   <button
-                    className="pd-btn"
+                    className="tp-btn"
                     onClick={() =>
                       navigate("/StampData", {
                         state: { idNumber: passport.idNumber, from: "USER" },
                       })
                     }
                   >
-                    view stamp
+                    View Stamp
                   </button>
                 </div>
               </div>
 
-              {/* الصورة */}
               {hasPhoto && (
-                <div className="pd-photo">
+                <div className="tp-photo">
                   <img
                     src={`${photoUrl}?v=${Date.now()}`}
                     alt="passport owner"
-                    className="pd-img"
+                    className="tp-img"
                     loading="lazy"
                     decoding="async"
                   />
@@ -94,6 +73,6 @@ export default function PassportData() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

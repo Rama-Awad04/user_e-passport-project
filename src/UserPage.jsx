@@ -64,23 +64,19 @@ function UserPage() {
       const provider = new ethers.JsonRpcProvider(RPC_URL);
       const contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, provider);
 
-      // IMPORTANT: birthDate لازم نفس صيغة اللي مخزّنة بالعقد (يفضل YYYY-MM-DD)
+      // birthDate لازم نفس صيغة المخزنة بالعقد (يفضل YYYY-MM-DD)
       const r = await contract.getPassport(nationalId, birthDate);
 
       const passport = {
         fullName: r.fullName,
         motherName: r.motherName,
-        idNumber: nationalId, // العقد ما بيرجعها، فبنضيفها
+        idNumber: nationalId,
         passportNumber: r.passportNumber,
         gender: r.gender,
-
-        // لتتوافق مع كودك الحالي
         dob: r.dateOfBirth,
         birthPlace: r.placeOfBirth,
-
         issueDate: r.issueDate,
         expiryDate: r.expiryDate,
-
         fingerprintHash: r.fingerprintHash,
         sensorId: r.sensorId?.toString?.() ?? String(r.sensorId),
         photoUrl: (r.photoUrl || "").replace(/\s+/g, ""),
@@ -95,7 +91,6 @@ function UserPage() {
       navigate("/loading-passport", { state: { passport } });
     } catch (err) {
       console.error(err);
-
       const msg = (err?.shortMessage || err?.message || "").toLowerCase();
 
       if (msg.includes("passport not found")) {
@@ -109,7 +104,7 @@ function UserPage() {
   };
 
   return (
-    <>
+    <div className="up-scope">
       <Header />
 
       <div className="page-wrapper">
@@ -151,6 +146,7 @@ function UserPage() {
               className="icon instagram"
               target="_blank"
               rel="noreferrer"
+              aria-label="Instagram"
             >
               <FaInstagram />
             </a>
@@ -159,6 +155,7 @@ function UserPage() {
               className="icon twitter"
               target="_blank"
               rel="noreferrer"
+              aria-label="Twitter"
             >
               <FaXTwitter />
             </a>
@@ -167,6 +164,7 @@ function UserPage() {
               className="icon linkedin"
               target="_blank"
               rel="noreferrer"
+              aria-label="LinkedIn"
             >
               <FaLinkedin />
             </a>
@@ -175,7 +173,7 @@ function UserPage() {
 
         <img src="/cleanIMAGE.png" alt="passport" className="big-passport-img" />
       </div>
-    </>
+    </div>
   );
 }
 

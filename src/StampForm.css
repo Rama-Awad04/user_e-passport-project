@@ -1,200 +1,130 @@
-/* صفحة الختم */
-.stamp-page {
+/* StampForm.css */
+/* ✅ كل ستايل تحت .sf-scope فقط (ممنوع تضارب) */
+
+.sf-scope .stamp-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
-  color: white;
+  color: #ffffff;
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* المحتوى */
-.stamp-content {
+.sf-scope .stamp-content {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 16px 60px;
+  padding: 20px;
 }
 
-/* الكرت */
-.stamp-card {
+.sf-scope .stamp-card {
+  width: min(560px, 92vw);
   background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 18px;
   border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.20);
-  width: 420px;
-  animation: fadeInUp 1s ease forwards;
-  margin-top: -30px;
+  padding: 22px 22px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
-/* عنوان */
-.stamp-card h2 {
+.sf-scope .stamp-card h2 {
   text-align: center;
   font-size: 26px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin: 0 0 18px;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* الفورم */
-.stamp-form {
+.sf-scope .stamp-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
-/* الليبل */
-.stamp-form label {
+.sf-scope .stamp-form label {
   display: flex;
   flex-direction: column;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* ===== Inputs & Selects (WHITE but CLEAR) ===== */
-/* ===== Inputs & Selects (CLEAR WHITE STYLE) ===== */
-/* ===== Inputs & Selects (WHITE CLEAN STYLE) ===== */
-.stamp-form input[type="text"],
-.stamp-form input[type="date"],
-.stamp-form input[type="time"],
-.stamp-form select {
-  padding: 12px 14px;
-  border-radius: 12px;
-
-  background: #ffffff;                 /* أبيض صريح */
-  border: 1.5px solid #cbd5e1;          /* رمادي فاتح */
-
-  color: #0f172a;                       /* أسود/كحلي غامق */
-  font-size: 16px;
+  gap: 6px;
+  font-size: 14px;
   font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
 
+.sf-scope .stamp-form input,
+.sf-scope .stamp-form select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
   outline: none;
-  appearance: none;
-  cursor: pointer;
-
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-  transition: all 0.2s ease;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* ===== Placeholder ===== */
-.stamp-form input::placeholder {
-  color: #64748b;                       /* رمادي واضح */
-}
-
-/* ===== Focus ===== */
-.stamp-form input:focus,
-.stamp-form select:focus {
-  border-color: #2563eb;                /* أزرق هادئ */
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.25);
-}
-
-/* ===== Select Arrow ===== */
-.stamp-form select {
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'><path d='M5.5 7l4.5 4 4.5-4'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  background-size: 18px;
-}
-
-/* ===== Select Options ===== */
-.stamp-form select option {
-  background-color: #ffffff;
-  color: #0f172a;
-  font-weight: 600;
-}
-
-
-
-
-/* الأزرار */
-.stamp-buttons{
+.sf-scope .stamp-buttons {
   display: flex;
   justify-content: center;
-  width: 100%;          /* ✅ مهم */
-  margin-top: 22px;
+  margin-top: 10px;
 }
 
-
-
-
-.stamp-buttons button {
-  padding: 10px 20px;
-  border-radius: 8px;
+.sf-scope .view-stamp-button {
+  background: linear-gradient(135deg, #1b4965, #2a6f97);
+  color: #ffffff;
+  padding: 12px 28px;
   border: none;
+  border-radius: 12px;
   font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
-  font-weight: 600;
-}
-/* تثبيت زر Go Stamp: ما يتأثر بالستايل العام */
-.stamp-buttons .go-stamp-button{
-  padding: 10px 26px !important;
-  border-radius: 8px !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  border: none !important;
-  cursor: pointer !important;
-  transition: 0.3s !important;
-
-  /* 👇 هدول خليهّن زي ما كانوا عندك (بدون تغيير لون إذا مش بدك) */
-  background: linear-gradient(135deg, #5dade2, #2e86c1) !important;
-  color: #fff !important;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.20) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: all 0.25s ease;
 }
 
-/* زر Go Stamp */
-.go-stamp-button{
-  padding: 10px 26px;
-  background: linear-gradient(135deg, #5dade2, #2e86c1);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.20);
-  text-transform: capitalize;
-  margin: 0 !important;      /* ✅ يزيل أي margin خارجي */
-  position: static !important;
-
-  /* ❌ شيلي هدول */
-  /* display: block; */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
-  /* margin-top: 18px;  <-- خليها بالـ wrapper */
+.sf-scope .view-stamp-button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
-
-.go-stamp-button:hover {
-  background: linear-gradient(135deg, #3498db, #1b4f72);
-  transform: scale(1.05);
+.sf-scope .view-stamp-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
 }
 
-/* الحركة */
-@keyframes fadeInUp {
+.sf-scope .sf-warning {
+  margin-top: 12px;
+  text-align: center;
+  opacity: 0.85;
+}
+
+/* ✅ أنيميشن خاص */
+.sf-scope .sf-fade-in {
+  opacity: 0;
+  animation: sfFadeInUp 0.9s ease forwards;
+}
+
+@keyframes sfFadeInUp {
   from {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(26px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-.stamp-form .stamp-buttons{
-  display: flex !important;
-  justify-content: center !important;
-  width: 100% !important;
-}
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-.view-stamp-button{
-  background: linear-gradient(135deg, #1b4965, #2a6f97);
-  color: #fff;
+
+/* موبايل */
+@media (max-width: 520px) {
+  .sf-scope .stamp-card {
+    padding: 22px 18px;
+  }
+  .sf-scope .stamp-card h2 {
+    font-size: 22px;
+  }
 }

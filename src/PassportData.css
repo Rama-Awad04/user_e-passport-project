@@ -1,6 +1,7 @@
 /* PassportData.css */
+/* ✅ Scoped بالكامل: كل شي تحت .pd-scope عشان ما يأثر على أي صفحة ثانية */
 
-.passport-page {
+.pd-scope .passport-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
   color: #fff;
@@ -8,36 +9,32 @@
   display: flex;
   flex-direction: column;
 
-  /* منع السكرول */
   height: 100vh;
   overflow: hidden;
 }
 
-/* نفس فكرة القديم: بدون فراغ ضخم */
-.passport-content {
+.pd-scope .passport-content {
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;   /* ✅ هون المهم */
   padding: 20px;
-  padding-top: 20px;
 }
 
-/* توسيط */
-.content-wrapper {
+.pd-scope .content-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-.card-with-message {
+.pd-scope .card-with-message {
   position: relative;
   width: min(680px, 92vw);
- margin-top: -30px;
-  margin-left: -40px;
+  margin: 0;            /* ✅ بدل -30 و -40 */
 }
 
-/* رسالة القرار فوق الكارد */
-.decision-message {
+/* رسالة القرار */
+.pd-scope .decision-message {
   position: absolute;
   top: -62px;
   left: 50%;
@@ -57,18 +54,18 @@
   z-index: 10;
 }
 
-.decision-message.access {
+.pd-scope .decision-message.access {
   background: rgba(46, 204, 113, 0.9);
   border: 2px solid #2ecc71;
 }
 
-.decision-message.deny {
+.pd-scope .decision-message.deny {
   background: linear-gradient(135deg, #ff6b6b, #c0392b);
   border: 2px solid #e74c3c;
 }
 
-/* نفس بوكس القديم */
-.passport-card {
+/* الكارد */
+.pd-scope .passport-card {
   background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -77,25 +74,24 @@
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
-/* ديزاين القديم: نص يسار + صورة يمين */
-.passport-card.passport-emp-style {
+.pd-scope .passport-card.passport-emp-style {
   width: 100%;
   max-width: 680px;
 }
 
-.passport-emp-content {
+.pd-scope .passport-emp-content {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
 }
 
-.passport-emp-text {
+.pd-scope .passport-emp-text {
   flex: 1;
   min-width: 0;
 }
 
-.passport-emp-title {
+.pd-scope .passport-emp-title {
   text-align: left;
   font-size: 26px;
   font-weight: 700;
@@ -104,14 +100,14 @@
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-.passport-card p {
+.pd-scope .passport-card p {
   margin: 8px 0;
   font-size: 18px;
   line-height: 1.35;
 }
 
-/* يمين: عمود الصورة + خط فاصل */
-.passport-emp-photo {
+/* الصورة يمين */
+.pd-scope .passport-emp-photo {
   flex: 0 0 auto;
   padding-left: 14px;
   border-left: 1px solid rgba(255, 255, 255, 0.22);
@@ -120,7 +116,7 @@
   align-items: flex-start;
 }
 
-.passport-emp-img {
+.pd-scope .passport-emp-img {
   width: 150px;
   height: 190px;
   object-fit: cover;
@@ -133,16 +129,18 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
 }
 
-/* أزرار Access / Deny (يمين) */
-.decision-buttons {
+/* Access/Deny */
+.pd-scope .decision-buttons {
   display: flex;
   gap: 14px;
   justify-content: flex-end;
   margin-top: 14px;
 }
 
-.access-button,
-.deny-button {
+.pd-scope .access-button,
+.pd-scope .deny-button,
+.pd-scope .back-button,
+.pd-scope .go-stamp-button {
   padding: 10px 26px;
   background: rgba(255, 255, 255, 0.92);
   color: #2a6f97;
@@ -155,47 +153,30 @@
   transition: 0.25s;
 }
 
-.access-button:hover,
-.deny-button:hover {
+.pd-scope .access-button:hover,
+.pd-scope .deny-button:hover,
+.pd-scope .back-button:hover,
+.pd-scope .go-stamp-button:hover {
   background: #ffffff;
   transform: translateY(-2px);
 }
 
-/* Wrapper للـ Go Stamp / go home */
-.back-wrapper {
+/* مكان زر Go Stamp / Go Home */
+.pd-scope .back-wrapper {
   display: flex;
   justify-content: flex-start;
   width: 100%;
-   margin-top: 16px;
- padding-left: 180px;
+  margin-top: 16px;
+  padding-left: 180px;
 }
 
-
-/* توحيد ستايل Go Stamp + go home (نفس الشكل والمكان) */
-.back-button,
-.go-stamp-button {
-  padding: 10px 26px;
-  background: rgba(255, 255, 255, 0.92);
-  color: #2a6f97;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: 0.25s;
-  align-self: flex-end;
-
+/* ✅ أنيميشن خاص بالصفحة (بدون تضارب مع fade-in العام) */
+.pd-scope .pd-fade-in {
+  opacity: 0;
+  animation: pdFadeInUp 0.9s ease forwards;
 }
 
-.back-button:hover,
-.go-stamp-button:hover {
-  background: #ffffff;
-  transform: translateY(-2px);
-}
-
-/* animation */
-@keyframes fadeInUp {
+@keyframes pdFadeInUp {
   0% {
     opacity: 0;
     transform: translateY(30px);
@@ -206,54 +187,35 @@
   }
 }
 
-.fade-in {
-  opacity: 0;
-  animation: fadeInUp 0.9s ease forwards;
-}
-
 /* موبايل */
 @media (max-width: 520px) {
-  .passport-content {
+  .pd-scope .passport-content {
     padding-top: 70px;
   }
 
-  .decision-message {
+  .pd-scope .decision-message {
     top: -70px;
     font-size: 16px;
   }
 
-  .passport-emp-content {
+  .pd-scope .passport-emp-content {
     flex-direction: column;
     align-items: center;
   }
 
-  .passport-emp-photo {
+  .pd-scope .passport-emp-photo {
     border-left: none;
     padding-left: 0;
     margin-top: 12px;
   }
 
-  .passport-emp-title {
+  .pd-scope .passport-emp-title {
     text-align: center;
   }
 
-  .decision-buttons,
-  .back-wrapper {
+  .pd-scope .decision-buttons,
+  .pd-scope .back-wrapper {
     justify-content: center;
-    padding-right: 0; /* بالموبايل خلّيها بالنص */
+    padding-left: 0;
   }
-}
-/* إجبار لون Go Stamp أبيض مثل go home */
-.go-stamp-button {
-  background: rgba(255, 255, 255, 0.92) !important;
-  color: #2a6f97 !important;
-   margin-right: 160px;
-}
-/* Go Stamp: ازاحة يمين فقط */
-.go-stamp-button{
-  background: rgba(255,255,255,0.92) !important;
-  color: #2a6f97 !important;
-
-  position: relative;
-  left: 160px;   /* ⬅️ زيدي/قللي */
 }

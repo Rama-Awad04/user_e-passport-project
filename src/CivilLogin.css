@@ -1,16 +1,16 @@
 /* CivilLogin.css */
+/* ✅ Scoped 100% تحت .cl-scope لمنع أي تضارب مع أي صفحة ثانية */
 
-.civil-login-page {
+.cl-scope .civil-login-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
   font-family: "Poppins", sans-serif;
   color: #fff;
-  transition: background 0.35s ease, color 0.35s ease;
 }
 
-.civil-login-container {
+.cl-scope .civil-login-container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -21,7 +21,7 @@
 }
 
 /* ✅ بلوك الصورة */
-.civil-login-illustration {
+.cl-scope .civil-login-illustration {
   width: 360px;
   max-width: 40vw;
   display: flex;
@@ -29,7 +29,7 @@
   align-items: center;
 }
 
-.civil-login-illustration img {
+.cl-scope .civil-login-illustration img {
   width: 100%;
   height: auto;
   display: block;
@@ -38,7 +38,7 @@
 
 /* ✅ موبايل: الصورة فوق البوكس */
 @media (max-width: 900px) {
-  .civil-login-container {
+  .cl-scope .civil-login-container {
     flex-direction: column;
     margin-top: 70px;
     gap: 18px;
@@ -46,13 +46,13 @@
     padding-right: 20px;
   }
 
-  .civil-login-illustration {
+  .cl-scope .civil-login-illustration {
     width: 260px;
     max-width: 80vw;
   }
 }
 
-.civil-login-box {
+.cl-scope .civil-login-box {
   width: 430px;
   padding: 42px;
   background: rgba(255, 255, 255, 0.18);
@@ -60,17 +60,16 @@
   border: 1px solid rgba(255, 255, 255, 0.28);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(8px);
-  transition: background 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
 }
 
-.civil-title {
+.cl-scope .civil-title {
   text-align: center;
   font-size: 28px;
   margin-bottom: 6px;
   font-weight: 700;
 }
 
-.civil-subtitle {
+.cl-scope .civil-subtitle {
   text-align: center;
   font-size: 17px;
   color: #ffffff;
@@ -80,104 +79,53 @@
   opacity: 0.95;
 }
 
-/* =========================
-   ✅ Scoped styles لمنع تضارب CSS
-   ========================= */
-.civil-login-page .input-group {
+/* ✅ Inputs */
+.cl-scope .input-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 18px;
 }
 
-.civil-login-page .input-group label {
+.cl-scope .input-group label {
   margin-bottom: 6px;
   font-size: 14px;
 }
 
-/* ✅ طبّقي ستايل عام لكل inputs إلا الباسورد */
-.civil-login-page .input-group input:not(.password-input) {
+/* ✅ ستايل موحد لكل الحقول */
+.cl-scope .civil-input {
+  width: 100%;
   padding: 12px 14px;
   border-radius: 10px;
   border: none;
   outline: none;
   font-size: 16px;
-  font-family: "Poppins";
+  font-family: "Poppins", sans-serif;
+  background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
-
-/* ✅ زر الدخول */
-.civil-login-btn {
-  width: 100%;
-  margin-top: 14px;
-  padding: 13px;
-  font-size: 18px;
-  font-weight: 600;
-  background: linear-gradient(135deg, #1b4965, #2a6f97);
-  color: #ffffff;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+/* ✅ Focus */
+.cl-scope .civil-input:focus {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 
-.civil-login-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
-  filter: brightness(1.05);
-}
-
-.civil-login-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* ✨ صندوق الدخول يتحرك عند فتح الصفحة */
-.civil-login-page .fade-slide {
-  opacity: 0;
-  transform: translateY(40px);
-  animation: fadeSlideIn 0.9s ease forwards;
-}
-
-@keyframes fadeSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-    filter: blur(6px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-/* ✅ الباسورد */
-.civil-login-page .password-wrapper {
+/* ✅ Password wrapper */
+.cl-scope .password-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   width: 100%;
 }
 
-.civil-login-page .password-input {
-  width: 100%;
-  padding: 10px 45px 10px 10px;
-  border: 1px solid #ccc;
-  border-radius: 999px;
-  outline: none;
-  transition: border-color 0.35s ease;
+/* مساحة للزر داخل خانة الباسورد */
+.cl-scope .password-input {
+  padding-right: 54px;
 }
 
-.civil-login-page .password-input:focus {
-  border-color: #3b82f6;
-}
-
-.civil-login-page .toggle-password {
+/* زر العين */
+.cl-scope .toggle-password {
   position: absolute;
-  right: 4px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   width: 36px;
@@ -193,21 +141,64 @@
   opacity: 0.95;
 }
 
-.civil-login-page .toggle-password svg {
+.cl-scope .toggle-password svg {
   font-size: 18px;
 }
 
-.civil-login-page .toggle-password:hover {
+.cl-scope .toggle-password:hover {
   opacity: 1;
 }
 
-.civil-login-page .password-input::-ms-reveal,
-.civil-login-page .password-input::-ms-clear {
-  display: none;
+/* ✅ زر الدخول */
+.cl-scope .civil-login-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 13px;
+  font-size: 18px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #1b4965, #2a6f97);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.cl-scope .civil-login-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  filter: brightness(1.05);
+}
+
+.cl-scope .civil-login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ✅ Animation */
+.cl-scope .fade-slide {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: clFadeSlideIn 0.9s ease forwards;
+}
+
+@keyframes clFadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 /* ✅ Error */
-.civil-login-page .error-text {
+.cl-scope .error-text {
   margin-top: 6px;
   margin-bottom: 6px;
   font-size: 14px;

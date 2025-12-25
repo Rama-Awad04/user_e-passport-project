@@ -47,143 +47,124 @@ export default function PassportData() {
   const placeOfBirth = passport.placeOfBirth ?? passport.birthPlace ?? "-";
   const dateOfBirth = passport.dateOfBirth ?? passport.dob ?? null;
 
-  // ✅ فقط الصورة المختارة من الفورم — بدون fallback
   const imgSrc = photoUrl ? `${photoUrl}?v=${Date.now()}` : "";
 
   return (
-    <div className="passport-page">
-      <Header />
+    <div className="pd-scope">
+      <div className="passport-page">
+        <Header />
 
-      <main className="passport-content fade-in">
-        <div className="content-wrapper">
-          <div className="card-with-message">
-            {/* ✅ رسالة القرار فوق الكارد */}
-            {decisionMade && (
-              <div className={`decision-message ${decisionMade}`}>
-                {decisionMade === "access"
-                  ? " Passport Approved"
-                  : " Passport Rejected"}
-              </div>
-            )}
+        <main className="passport-content pd-fade-in">
+          <div className="content-wrapper">
+            <div className="card-with-message">
+              {decisionMade && (
+                <div className={`decision-message ${decisionMade}`}>
+                  {decisionMade === "access"
+                    ? " Passport Approved"
+                    : " Passport Rejected"}
+                </div>
+              )}
 
-            {/* ✅ نفس ديزاين القديم: نص يسار + صورة يمين */}
-            <div className="passport-card passport-emp-style">
-              <div className="passport-emp-content">
-                {/* LEFT */}
-                <div className="passport-emp-text">
-                  <h2 className="passport-emp-title">Passport Data</h2>
+              <div className="passport-card passport-emp-style">
+                <div className="passport-emp-content">
+                  <div className="passport-emp-text">
+                    <h2 className="passport-emp-title">Passport Data</h2>
 
-                  <p>
-                    <b>Full Name:</b> {passport.fullName ?? "-"}
-                  </p>
-                  <p>
-                    <b>National ID:</b> {passport.idNumber ?? "-"}
-                  </p>
-                  <p>
-                    <b>Place of Birth:</b> {placeOfBirth}
-                  </p>
-                  <p>
-                    <b>Mother’s Name:</b> {passport.motherName ?? "-"}
-                  </p>
-                  <p>
-                    <b>Date of Birth:</b> {fmt(dateOfBirth)}
-                  </p>
-                  <p>
-                    <b>Gender:</b> {passport.gender ?? "-"}
-                  </p>
-                  <p>
-                    <b>Passport Number:</b> {passport.passportNumber ?? "-"}
-                  </p>
-                  <p>
-                    <b>Issue Date:</b> {fmt(passport.issueDate)}
-                  </p>
-                  <p>
-                    <b>Expiry Date:</b> {fmt(passport.expiryDate)}
-                  </p>
+                    <p>
+                      <b>Full Name:</b> {passport.fullName ?? "-"}
+                    </p>
+                    <p>
+                      <b>National ID:</b> {passport.idNumber ?? "-"}
+                    </p>
+                    <p>
+                      <b>Place of Birth:</b> {placeOfBirth}
+                    </p>
+                    <p>
+                      <b>Mother’s Name:</b> {passport.motherName ?? "-"}
+                    </p>
+                    <p>
+                      <b>Date of Birth:</b> {fmt(dateOfBirth)}
+                    </p>
+                    <p>
+                      <b>Gender:</b> {passport.gender ?? "-"}
+                    </p>
+                    <p>
+                      <b>Passport Number:</b> {passport.passportNumber ?? "-"}
+                    </p>
+                    <p>
+                      <b>Issue Date:</b> {fmt(passport.issueDate)}
+                    </p>
+                    <p>
+                      <b>Expiry Date:</b> {fmt(passport.expiryDate)}
+                    </p>
 
-                  {/* ✅ أزرار Access / Deny قبل اتخاذ القرار */}
-                  {!decisionMade && (
-                    <div className="decision-buttons">
-                      <button
-                        type="button"
-                        className="access-button"
-                        onClick={() => setDecisionMade("access")}
-                      >
-                        Access
-                      </button>
+                    {!decisionMade && (
+                      <div className="decision-buttons">
+                        <button
+                          type="button"
+                          className="access-button"
+                          onClick={() => setDecisionMade("access")}
+                        >
+                          Access
+                        </button>
 
-                      <button
-                        type="button"
-                        className="deny-button"
-                        onClick={() => setDecisionMade("deny")}
-                      >
-                        Deny
-                      </button>
-                    </div>
-                  )}
+                        <button
+                          type="button"
+                          className="deny-button"
+                          onClick={() => setDecisionMade("deny")}
+                        >
+                          Deny
+                        </button>
+                      </div>
+                    )}
 
-                  {/* ✅ Access → Go Stamp (يمين) */}
-                  {decisionMade === "access" && (
-                    <div className="back-wrapper">
-                      <button
-                        type="button"
-                        className="go-stamp-button"
-                        onClick={() =>
-                          navigate("/stamp-form", {
-                            state: {
-                              idNumber: passport.idNumber,
-                              passportNumber: passport.passportNumber || null,
-                            },
-                          })
-                        }
-                      >
-                        Stamp Passport
-                      </button>
-                    </div>
-                  )}
+                    {decisionMade === "access" && (
+                      <div className="back-wrapper">
+                        <button
+                          type="button"
+                          className="go-stamp-button"
+                          onClick={() =>
+                            navigate("/stamp-form", {
+                              state: {
+                                idNumber: passport.idNumber,
+                                passportNumber: passport.passportNumber || null,
+                              },
+                            })
+                          }
+                        >
+                          Stamp Passport
+                        </button>
+                      </div>
+                    )}
 
-                  {/* ✅ Deny → go home (يمين) */}
-                  {decisionMade === "deny" && (
-                    <div className="back-wrapper">
-                      <button
-                        type="button"
-                        className="back-button"
-                        onClick={() => navigate("/fingerprint-login")}
-                      >
-                        Go Home
-                      </button>
+                    {decisionMade === "deny" && (
+                      <div className="back-wrapper">
+                        <button
+                          type="button"
+                          className="back-button"
+                          onClick={() => navigate("/fingerprint-login")}
+                        >
+                          Go Home
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {imgSrc && (
+                    <div className="passport-emp-photo">
+                      <img
+                        src={imgSrc}
+                        alt="passport owner"
+                        className="passport-emp-img"
+                      />
                     </div>
                   )}
                 </div>
-
-                {/* RIGHT (الصورة الكبيرة) */}
-                {imgSrc && (
-                  <div className="passport-emp-photo">
-                    <img
-                      src={imgSrc}
-                      alt="passport owner"
-                      className="passport-emp-img"
-                    />
-                  </div>
-                )}
               </div>
             </div>
-
-            {/* ✅ إذا بدك كمان زر go home حتى بعد Access (اختياري)
-            {decisionMade === "access" && (
-              <div className="back-wrapper">
-                <button
-                  type="button"
-                  className="back-button"
-                  onClick={() => navigate("/fingerprint-login")}
-                >
-                  go home
-                </button>
-              </div>
-            )} */}
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,125 @@
+/* TempPassportPage.css */
+/* ✅ Scoped بالكامل تحت .tp-scope لمنع التضارب */
+
+.tp-scope .tp-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 20px;
+}
+
+.tp-scope .tp-layout {
+  width: min(680px, 92vw);
+  margin-top: 60px;
+}
+
+.tp-scope .tp-box {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  padding: 26px 30px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+}
+
+.tp-scope .tp-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.tp-scope .tp-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.tp-scope .tp-title {
+  text-align: left;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  color: #ffffff;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tp-scope .tp-text p {
+  margin: 8px 0;
+  line-height: 1.35;
+  font-size: 18px;
+}
+
+/* صورة المستخدم */
+.tp-scope .tp-photo {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.22);
+}
+
+.tp-scope .tp-img {
+  width: 150px;
+  height: 190px;
+  object-fit: cover;
+  object-position: center top;
+
+  background: #f7f7f7;
+  border: 2px solid #0b4f6c;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+}
+
+/* زر View Stamp */
+.tp-scope .tp-btn-wrap {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 60px;
+}
+
+.tp-scope .tp-btn {
+  padding: 10px 32px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #2a6f97;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: 0.2s;
+   
+}
+
+.tp-scope .tp-btn:hover {
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* موبايل */
+@media (max-width: 520px) {
+  .tp-scope .tp-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tp-scope .tp-photo {
+    padding-left: 0;
+    border-left: 0;
+    margin-top: 10px;
+  }
+
+  .tp-scope .tp-title {
+    text-align: center;
+  }
+}

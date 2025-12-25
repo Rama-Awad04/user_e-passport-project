@@ -1,60 +1,62 @@
-/* صفحة بيانات الختم */
-.stampdata-page {
+/* StampData.css */
+/* ✅ معزول بالكامل تحت .sd-scope */
+
+.sd-scope .sd-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* المحتوى */
-.stampdata-content {
+.sd-scope .sd-content {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;            /* يوسط الكرت بالنص */
-  padding: 40px 16px 60px;
+  align-items: center;
+  padding: 20px;
 }
 
-/* الكرت */
-.stampdata-card {
+.sd-scope .sd-card {
+  width: min(560px, 92vw);
   background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(6px);
   border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 26px 28px;
   border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.20);
-  width: 520px;
-  max-width: 95%;
-  animation: stampdataFadeIn 0.8s ease forwards;
+  padding: 22px 22px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
-/* العنوان */
-.stampdata-card h2 {
+.sd-scope .sd-card h2 {
   text-align: center;
   font-size: 26px;
   font-weight: 700;
-  margin-bottom: 18px;
+  margin: 0 0 18px;
   text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* نص داخلي (مثلاً placeholder لحد ما يجي الباك) */
-.stampdata-text {
-  font-size: 16px;
-  opacity: 0.9;
+.sd-scope .sd-muted {
   text-align: center;
-  line-height: 1.6;
+  color: #eef;
+  opacity: 0.85;
 }
 
-/* زر رجوع */
-.stampdata-actions {
-  margin-top: 22px;
+.sd-scope .sd-info p {
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.sd-scope .sd-actions {
   display: flex;
   justify-content: center;
+  margin-top: 18px;
 }
 
-.stampdata-back-btn {
+.sd-scope .sd-back-btn {
   padding: 10px 26px;
   background: rgba(255, 255, 255, 0.92);
   color: #2a6f97;
@@ -67,63 +69,31 @@
   transition: 0.25s;
 }
 
-
-.stampdata-back-btn:hover {
+.sd-scope .sd-back-btn:hover {
   background: #ffffff;
   transform: translateY(-2px);
 }
 
+/* ✅ أنيميشن خاص */
+.sd-scope .sd-fade-in {
+  opacity: 0;
+  animation: sdFadeInUp 0.9s ease forwards;
+}
 
-/* أنيميشن خفيفة */
-@keyframes stampdataFadeIn {
+@keyframes sdFadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(26px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-/* Force white back button – override anything else */
-.stampdata-back-btn {
-  padding: 10px 26px !important;
-  background: rgba(255, 255, 255, 0.92) !important;
-  color: #2a6f97 !important;
-  border: none !important;
-  border-radius: 10px !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
-  transition: 0.25s !important;
-}
 
-.stampdata-back-btn:hover {
-  background: #ffffff !important;
-  transform: translateY(-2px) !important;
-}
-
-
-/* زر go home الحقيقي (class: back-btn) */
-.back-btn {
-  padding: 10px 26px !important;
-  background: rgba(255, 255, 255, 0.92) !important;
-  color: #2a6f97 !important;
-  border: none !important;
-  border-radius: 10px !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  cursor: pointer !important;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
-  transition: 0.25s !important;
-}
-
-.back-btn:hover {
-  background: #ffffff !important;
-  transform: translateY(-2px) !important;
-}
-.back-btn {
-  border: none !important;
-  outline: none !important;
+/* موبايل */
+@media (max-width: 520px) {
+  .sd-scope .sd-card h2 {
+    font-size: 22px;
+  }
 }
