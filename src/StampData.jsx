@@ -47,7 +47,9 @@ export default function StampData() {
 
   return (
     <div className="sd-scope">
-      <div className="sd-page">
+      <div className={`sd-page ${from === "STAFF" ? "sd-from-staff" : ""}`}>
+
+
         <Header />
 
         <main className="sd-content sd-fade-in">

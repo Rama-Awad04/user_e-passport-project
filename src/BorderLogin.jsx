@@ -72,32 +72,35 @@ export default function BorderLogin() {
           <h2 className="border-title">Border Transit Authority</h2>
           <p className="border-subtitle">Employee Login</p>
 
-          <form autoComplete="off" onSubmit={handleLogin}>
+          <form autoComplete="new-password" onSubmit={handleLogin}>
+
             <div className="input-group">
               <label htmlFor="borderStaffCode">Employee Code</label>
-              <input
-                id="borderStaffCode"
-                type="text"
-                placeholder="Enter your ID (BTA-2001)"
-                value={staffCode}
-                onChange={(e) => setStaffCode(e.target.value)}
-                autoComplete="username"
-              />
+             <input
+  id="borderStaffCode"
+  type="text"
+  placeholder="Enter your ID (BTA-2001)"
+  value={staffCode}
+  onChange={(e) => setStaffCode(e.target.value)}
+  autoComplete="new-password"
+/>
+
             </div>
 
             <div className="input-group">
               <label htmlFor="borderPassword">Password</label>
 
               <div className="password-wrapper">
-                <input
-                  id="borderPassword"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                  className="password-input"
-                />
+              <input
+  id="borderPassword"
+  type={showPassword ? "text" : "password"}
+  placeholder="Enter your password"
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  autoComplete="new-password"
+  className="password-input"
+/>
+
 
                 <button
                   type="button"

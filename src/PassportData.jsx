@@ -141,7 +141,8 @@ export default function PassportData() {
                       <div className="back-wrapper">
                         <button
                           type="button"
-                          className="back-button"
+                          className="back-button go-home-btn"
+
                           onClick={() => navigate("/fingerprint-login")}
                         >
                           Go Home

@@ -3,7 +3,7 @@
 
 .pd-scope .passport-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  background:#5A86A3;
   color: #fff;
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -168,6 +168,16 @@
   width: 100%;
   margin-top: 16px;
   padding-left: 180px;
+}
+/* ✅ تحريك Go Home فقط (يمين شوي) */
+.pd-scope .go-home-btn {
+  position: relative;
+  left: 35px; /* زيدي/قللي حسب اللي بدك */
+}
+/* ✅ تحريك Stamp Passport فقط (يمين شوي) */
+.pd-scope .go-stamp-button {
+  position: relative;
+  left: 35px; /* غيري الرقم حسب ما بدك */
 }
 
 /* ✅ أنيميشن خاص بالصفحة (بدون تضارب مع fade-in العام) */

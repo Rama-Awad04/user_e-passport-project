@@ -1,9 +1,12 @@
 /* src/UserPage.css */
 /* ✅ Scoped بالكامل داخل .up-scope عشان ما يأثر على أي صفحة ثانية */
-
+/*#5B7C8F*/
+/*#7A9CB3*/
 .up-scope .page-wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #205d7a 0%, #72b8d4 100%);
+  background-color:#2F8F9D
+;
+
   display: flex;
 
   justify-content: flex-end;
@@ -116,10 +119,20 @@
   padding: 12px;
   border-radius: 14px;
   border: 1px solid transparent;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.78);
   outline: none;
   font-size: 15px;
   transition: 0.2s ease;
+  
+}
+/* لون النص اللي المستخدم بكتبه */
+.up-scope .input-group input {
+  color: #1f2937;
+}
+
+/* لون النص داخل placeholder */
+.up-scope .input-group input::placeholder {
+  color:6b7280;
 }
 
 .up-scope .input-group input:focus {

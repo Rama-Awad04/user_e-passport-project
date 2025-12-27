@@ -538,12 +538,19 @@ app.get("/api/movements", (_req, res) => {
 app.get("/api/users/:idNumber", (req, res) => {
   const { idNumber } = req.params;
 
-  const sql = `
-    SELECT idNumber, fullName, birthPlace, motherName, dob, gender
-    FROM userinformation
-    WHERE idNumber = ?
-    LIMIT 1
-  `;
+const sql = `
+  SELECT
+    idNumber,
+    fullName,
+    birthPlace,
+    motherName,
+    DATE_FORMAT(dob, '%Y-%m-%d') AS dob,
+    gender
+  FROM userinformation
+  WHERE idNumber = ?
+  LIMIT 1
+`;
+
 
   db.query(sql, [idNumber], (err, rows) => {
     if (err) return res.status(500).json({ error: "Database error" });

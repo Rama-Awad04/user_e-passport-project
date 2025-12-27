@@ -9,6 +9,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000
 
 const CONTRACT_ADDRESS = "0x00b390cab5863af012558a6829d4066280b860c5";
 
+// ✅ ABI مطابق للكونتراكت (MovementType: ENTRY=0, EXIT=1)
 const CONTRACT_ABI = [
   "event MovementRecorded((uint256 movementId,uint256 idNumber,uint8 movementType,string country,string borderPoint,string stampNumber,string stampDate,string passportNumber,string officerStaffCode) data,address indexed recordedBy,uint256 recordedAt)",
   "function recordMovement((uint256 idNumber,string passportNumber,uint8 movementType,string country,string borderPoint,string stampNumber,string stampDate,string officerStaffCode) input) external returns (uint256 movementId)",
@@ -21,7 +22,7 @@ export default function StampForm() {
 
   const [formData, setFormData] = useState({
     country: "",
-    direction: "exit",
+    direction: "exit", // "entry" | "exit"
     borderPoint: "",
     date: "",
     stampNumber: "",
@@ -50,6 +51,7 @@ export default function StampForm() {
 
     const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
+    // ✅ مطابق للكونتراكت: ENTRY=0, EXIT=1
     const movementType = formData.direction === "entry" ? 0 : 1;
 
     const movementInput = {
@@ -59,21 +61,22 @@ export default function StampForm() {
       country: formData.country,
       borderPoint: formData.borderPoint,
       stampNumber: formData.stampNumber,
-      stampDate: formData.date,
+      stampDate: formData.date, // string في الكونتراكت
       officerStaffCode: officerStaffCode || "",
     };
 
     const tx = await contract.recordMovement(movementInput);
     const receipt = await tx.wait();
 
-    // (اختياري) استخراج movementId من Event
+    // (اختياري) استخراج movementId من الـ Event
     let movementIdOnChain = null;
     try {
       for (const log of receipt.logs) {
         try {
           const parsed = contract.interface.parseLog(log);
           if (parsed?.name === "MovementRecorded") {
-            movementIdOnChain = parsed.args?.data?.movementId?.toString?.() ?? null;
+            movementIdOnChain =
+              parsed.args?.data?.movementId?.toString?.() ?? null;
             break;
           }
         } catch {
@@ -88,6 +91,8 @@ export default function StampForm() {
   };
 
   const saveMovementInBackend = async () => {
+    if (!idNumber) throw new Error("Missing idNumber");
+
     const movementTypeStr = formData.direction === "entry" ? "ENTRY" : "EXIT";
 
     const payload = {
@@ -100,11 +105,14 @@ export default function StampForm() {
       officerStaffCode: officerStaffCode || null,
     };
 
-    const res = await fetch(`${API_BASE_URL}/api/passports/${idNumber}/movements`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    const res = await fetch(
+      `${API_BASE_URL}/api/passports/${idNumber}/movements`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
 
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
@@ -154,6 +162,7 @@ export default function StampForm() {
                 <input
                   type="text"
                   name="country"
+                  placeholder="Enter country name"
                   value={formData.country}
                   onChange={handleChange}
                   required
@@ -162,7 +171,11 @@ export default function StampForm() {
 
               <label>
                 Direction (Entry / Exit):
-                <select name="direction" value={formData.direction} onChange={handleChange}>
+                <select
+                  name="direction"
+                  value={formData.direction}
+                  onChange={handleChange}
+                >
                   <option value="entry">Entry</option>
                   <option value="exit">Exit</option>
                 </select>
@@ -196,7 +209,7 @@ export default function StampForm() {
                 <input
                   type="text"
                   name="borderPoint"
-                  placeholder="Airport / Land border / Seaport"
+                  placeholder="Enter border point"
                   value={formData.borderPoint}
                   onChange={handleChange}
                   required
@@ -204,7 +217,11 @@ export default function StampForm() {
               </label>
 
               <div className="stamp-buttons">
-                <button className="view-stamp-button" type="submit" disabled={loading}>
+                <button
+                  className="view-stamp-button"
+                  type="submit"
+                  disabled={loading}
+                >
                   {loading ? "Saving on blockchain & backend..." : "View Stamp"}
                 </button>
               </div>

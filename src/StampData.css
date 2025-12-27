@@ -3,13 +3,17 @@
 
 .sd-scope .sd-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #2a6f97 0%, #61a5c2 100%);
+  background:#2F8F9D;
   color: #ffffff;
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+}
+/* ✅ إذا الصفحة جاية من الفورم (STAFF) */
+.sd-scope .sd-page.sd-from-staff {
+  background: #5A86A3;
 }
 
 .sd-scope .sd-content {

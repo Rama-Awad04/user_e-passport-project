@@ -45,10 +45,11 @@ function UserPage() {
   const navigate = useNavigate();
 
   const handleShowPassport = async () => {
-    if (nationalId.length !== 10) {
-      alert("National ID must be exactly 10 digits.");
-      return;
-    }
+   if (nationalId.length !== 10) {
+  alert("Please enter a valid ID Number (exactly 10 digits).");
+  return;
+}
+
 
     if (!birthDate) {
       alert("Please enter your Date of Birth.");
@@ -113,18 +114,25 @@ function UserPage() {
           <h1>Login</h1>
 
           <div className="input-group">
-            <label htmlFor="nationalId">National ID</label>
-            <input
-              id="nationalId"
-              type="text"
-              value={nationalId}
-              onChange={(e) => {
-                const v = e.target.value;
-                if (/^\d{0,10}$/.test(v)) setNationalId(v);
-              }}
-              maxLength="10"
-            />
-          </div>
+  <label htmlFor="nationalId">National ID</label>
+  <input
+    id="nationalId"
+    name="nationalId"
+    type="text"
+    placeholder="Enter your ID Number (10 digits)"
+    value={nationalId}
+    onChange={(e) => {
+      // يسمح فقط بالأرقام وبحد أقصى 10
+      const v = e.target.value.replace(/\D/g, "").slice(0, 10);
+      setNationalId(v);
+    }}
+    inputMode="numeric"
+    pattern="\d{10}"
+    maxLength={10}
+    autoComplete="off"
+  />
+</div>
+
 
           <div className="input-group">
             <label htmlFor="birthDate">Date of Birth</label>
