@@ -8,7 +8,7 @@ import "./StampForm.css";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 const CONTRACT_ADDRESS = "0x00b390cab5863af012558a6829d4066280b860c5";
-
+//jjj
 // ✅ ABI مطابق للكونتراكت (MovementType: ENTRY=0, EXIT=1)
 const CONTRACT_ABI = [
   "event MovementRecorded((uint256 movementId,uint256 idNumber,uint8 movementType,string country,string borderPoint,string stampNumber,string stampDate,string passportNumber,string officerStaffCode) data,address indexed recordedBy,uint256 recordedAt)",
