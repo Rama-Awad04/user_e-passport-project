@@ -8,11 +8,11 @@ import "./StampForm.css";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 const CONTRACT_ADDRESS = "0x00b390cab5863af012558a6829d4066280b860c5";
-//jjj
 // ✅ ABI مطابق للكونتراكت (MovementType: ENTRY=0, EXIT=1)
 const CONTRACT_ABI = [
   "event MovementRecorded((uint256 movementId,uint256 idNumber,uint8 movementType,string country,string borderPoint,string stampNumber,string stampDate,string passportNumber,string officerStaffCode) data,address indexed recordedBy,uint256 recordedAt)",
   "function recordMovement((uint256 idNumber,string passportNumber,uint8 movementType,string country,string borderPoint,string stampNumber,string stampDate,string officerStaffCode) input) external returns (uint256 movementId)",
+  "function getAllMovements(uint256 idNumber) view returns (tuple(uint256 movementId,uint256 idNumber,(uint8 movementType,string country,string borderPoint,string stampNumber,string stampDate,string passportNumber,string officerStaffCode) core,uint256 recordedAt,address recordedBy)[])",
 ];
 
 export default function StampForm() {
@@ -35,6 +35,33 @@ export default function StampForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const getLastMovementFromChain = async () => {
+    if (!window.ethereum) throw new Error("No Ethereum provider");
+    if (!idNumber) throw new Error("Missing idNumber");
+
+    const provider = new BrowserProvider(window.ethereum);
+    await provider.send("eth_requestAccounts", []);
+    const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+
+    const list = await contract.getAllMovements(BigInt(idNumber));
+    if (!list || list.length === 0) return null;
+
+    const m = list[list.length - 1];
+    return {
+      movementId: m.movementId?.toString?.(),
+      idNumber: m.idNumber?.toString?.(),
+      movementType: Number(m.core.movementType) === 0 ? "ENTRY" : "EXIT",
+      country: m.core.country,
+      borderPoint: m.core.borderPoint,
+      stampNumber: m.core.stampNumber,
+      stampDate: m.core.stampDate,
+      passportNumber: m.core.passportNumber,
+      officerStaffCode: m.core.officerStaffCode,
+      recordedAt: Number(m.recordedAt),
+      recordedBy: m.recordedBy,
+    };
+  };
+
   const recordMovementOnChain = async () => {
     if (!window.ethereum) {
       alert("يجب تثبيت MetaMask أو محفظة تدعم Ethereum في المتصفح.");
@@ -51,7 +78,6 @@ export default function StampForm() {
 
     const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
-    // ✅ مطابق للكونتراكت: ENTRY=0, EXIT=1
     const movementType = formData.direction === "entry" ? 0 : 1;
 
     const movementInput = {
@@ -61,33 +87,12 @@ export default function StampForm() {
       country: formData.country,
       borderPoint: formData.borderPoint,
       stampNumber: formData.stampNumber,
-      stampDate: formData.date, // string في الكونتراكت
+      stampDate: formData.date,
       officerStaffCode: officerStaffCode || "",
     };
 
     const tx = await contract.recordMovement(movementInput);
-    const receipt = await tx.wait();
-
-    // (اختياري) استخراج movementId من الـ Event
-    let movementIdOnChain = null;
-    try {
-      for (const log of receipt.logs) {
-        try {
-          const parsed = contract.interface.parseLog(log);
-          if (parsed?.name === "MovementRecorded") {
-            movementIdOnChain =
-              parsed.args?.data?.movementId?.toString?.() ?? null;
-            break;
-          }
-        } catch {
-          // ignore non-matching logs
-        }
-      }
-    } catch (err) {
-      console.error("Error parsing event:", err);
-    }
-
-    return movementIdOnChain;
+    await tx.wait();
   };
 
   const saveMovementInBackend = async () => {
@@ -105,14 +110,11 @@ export default function StampForm() {
       officerStaffCode: officerStaffCode || null,
     };
 
-    const res = await fetch(
-      `${API_BASE_URL}/api/passports/${idNumber}/movements`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }
-    );
+    const res = await fetch(`${API_BASE_URL}/api/passports/${idNumber}/movements`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
@@ -134,10 +136,22 @@ export default function StampForm() {
     setLoading(true);
     try {
       await recordMovementOnChain();
-      await saveMovementInBackend();
+
+      let lastMovement = null;
+      try {
+        lastMovement = await getLastMovementFromChain();
+      } catch (err) {
+        console.error("Could not read last movement from chain:", err);
+      }
+
+      // ✅ على user.e-passport.me ممنوع API -> لا تنادي الباك إند
+      const isBlockchainOnlyHost = window.location.hostname.endsWith("user.e-passport.me");
+      if (!isBlockchainOnlyHost) {
+        await saveMovementInBackend(); // ✅ اللوكال يضل شغال زي ما هو
+      }
 
       navigate("/StampData", {
-        state: { idNumber, passportNumber, from: "STAFF" },
+        state: { idNumber, passportNumber, from: "STAFF", lastMovement },
       });
     } catch (err) {
       console.error(err);
@@ -171,11 +185,7 @@ export default function StampForm() {
 
               <label>
                 Direction (Entry / Exit):
-                <select
-                  name="direction"
-                  value={formData.direction}
-                  onChange={handleChange}
-                >
+                <select name="direction" value={formData.direction} onChange={handleChange}>
                   <option value="entry">Entry</option>
                   <option value="exit">Exit</option>
                 </select>
@@ -183,13 +193,7 @@ export default function StampForm() {
 
               <label>
                 Date:
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="date" name="date" value={formData.date} onChange={handleChange} required />
               </label>
 
               <label>
@@ -217,20 +221,14 @@ export default function StampForm() {
               </label>
 
               <div className="stamp-buttons">
-                <button
-                  className="view-stamp-button"
-                  type="submit"
-                  disabled={loading}
-                >
+                <button className="view-stamp-button" type="submit" disabled={loading}>
                   {loading ? "Saving on blockchain & backend..." : "View Stamp"}
                 </button>
               </div>
             </form>
 
             {!idNumber && (
-              <p className="sf-warning">
-                ⚠️ Missing idNumber: افتحي الصفحة من المسار الصحيح مع state.
-              </p>
+              <p className="sf-warning">⚠️ Missing idNumber: افتحي الصفحة من المسار الصحيح مع state.</p>
             )}
           </div>
         </main>
