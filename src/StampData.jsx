@@ -51,29 +51,41 @@ export default function StampData() {
         }
 
         // ✅ blockchain-only: إذا ما في lastMovement اقرأي من العقد
-        if (isBlockchainOnlyHost) {
-          if (!window.ethereum) throw new Error("MetaMask not found");
+       // ✅ blockchain-only: إذا ما في lastMovement اقرأي من العقد (بدون تأكيد MetaMask)
+if (isBlockchainOnlyHost) {
+  const RPC_URL = import.meta.env.VITE_RPC_URL; // حطيه بالـ .env
+  let provider;
 
-          const provider = new BrowserProvider(window.ethereum);
-          await provider.send("eth_requestAccounts", []);
-          const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+  if (window.ethereum) {
+    // قراءة فقط بدون طلب accounts => ما في popup
+    provider = new BrowserProvider(window.ethereum);
+  } else if (RPC_URL) {
+    // fallback بدون ميتاماسك نهائياً
+    const { JsonRpcProvider } = await import("ethers");
+    provider = new JsonRpcProvider(RPC_URL);
+  } else {
+    throw new Error("No provider available (MetaMask missing and VITE_RPC_URL not set)");
+  }
 
-          const list = await contract.getAllMovements(BigInt(idNumber));
-          if (list && list.length > 0) {
-            const m = list[list.length - 1];
-            setLastStamp({
-              country: m.core.country,
-              movementType: Number(m.core.movementType) === 0 ? "ENTRY" : "EXIT",
-              stampDate: m.core.stampDate,
-              stampNumber: m.core.stampNumber,
-              borderPoint: m.core.borderPoint,
-              createdAt: new Date(Number(m.recordedAt) * 1000).toISOString(),
-            });
-          } else {
-            setLastStamp(null);
-          }
-          return;
-        }
+  const contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+
+  const list = await contract.getAllMovements(BigInt(idNumber));
+  if (list && list.length > 0) {
+    const m = list[list.length - 1];
+    setLastStamp({
+      country: m.core.country,
+      movementType: Number(m.core.movementType) === 0 ? "ENTRY" : "EXIT",
+      stampDate: m.core.stampDate,
+      stampNumber: m.core.stampNumber,
+      borderPoint: m.core.borderPoint,
+      createdAt: new Date(Number(m.recordedAt) * 1000).toISOString(),
+    });
+  } else {
+    setLastStamp(null);
+  }
+  return;
+}
+
 
         // ✅ لوكال: نفس ما كان (Backend)
         const res = await fetch(`${API_BASE_URL}/api/passports/${idNumber}/movements`);
