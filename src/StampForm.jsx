@@ -5,7 +5,10 @@ import { BrowserProvider, Contract } from "ethers"; // ethers v6
 import Header from "./Header";
 import "./StampForm.css";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_BASE ||
+  "http://localhost:5000";
 
 const CONTRACT_ADDRESS = "0x00b390cab5863af012558a6829d4066280b860c5";
 // ✅ ABI مطابق للكونتراكت (MovementType: ENTRY=0, EXIT=1)
